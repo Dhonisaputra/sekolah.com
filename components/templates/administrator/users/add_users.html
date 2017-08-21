@@ -1,0 +1,23 @@
+<form ng-submit="add_new_user()">
+	<div class="form-group">
+		<label>Nama pengguna</label>
+		<input type="text" ng-model="userdata.name">
+	</div>
+	
+	<div class="form-group">
+		<label>password</label>
+		<input type="password" ng-model="userdata.password">
+	</div>
+	<div class="form-group">
+		<label>email</label>
+		<input type="email" ng-model="userdata.email">
+	</div>
+	<div class="form-group">
+		<label class="radio" ng-repeat="level in userlevel">
+			<input type="radio" ng-model="userdata.userlevel" ng-value="level.id"> {{level.level}}
+		</label>
+	</div>
+	<div class="form-group">
+		<button class="" type="submit"> Simpan </button>
+	</div>
+</form>

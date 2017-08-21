@@ -1,0 +1,137 @@
+.flat
+{
+	border-radius: 0px !important;
+}
+.avatar_post--style
+	{
+		height: 100px;
+		width: 100px;
+		border: 2px dashed #dddfe2;
+		background-image: url('assets/images/EWLe5fNY_Iz.png');
+		background-position: center;
+		background-repeat: no-repeat;
+		cursor: pointer;
+	}
+	.avatar_post--style:hover
+	{
+		border: 2px dashed #babcbf;
+	}
+	#temporary_ava_post
+	{
+		width: 200px;
+	}
+	.available-ava
+	{
+		position: relative !important;
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
+	}
+	.button-change-temporary-ava-post
+	{
+		position: absolute; !important;
+	    width: 100%;
+	    height: 100%;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    z-index: 2;
+	}
+	.button-change-temporary-ava-post:hover
+	{
+	    background-color: rgba(0,0,0,.3);
+	    color: white;
+	}
+	.tag-group
+	{
+		display: inline-block;
+		padding: 10px;
+	}
+	.tag-group-item
+	{
+		display: inline-block;
+		padding: 3px;
+		font-size: 12px;
+		background-color: #ddd;
+		margin-right: 5px;
+		margin-bottom: 5px;
+		/*color: white;*/
+	}
+		.tag-group-item button
+		{
+			margin-left: 5px;
+			/*color: white;*/
+		}
+
+	.full-width-100
+	{
+		width: 100% !important;
+	}
+
+.tab-content>.tab-pane
+{
+	margin-top: 10px !important;
+}
+
+/*CKEDITOR ERROR MESSAGE*/
+.cke_notification
+{
+	border: 0;
+    border-radius: 0;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+.cke_notification.cke_notification_warning
+{
+    background-color: #ffbc67;
+}
+	.cke_notification .cke_notification_message
+	{
+		display: inline;
+	}
+	.cke_notification .cke_notification_close
+	{
+		display: inline;
+		color: white;
+		margin-left: 15px;
+	}
+.break-all-word
+{
+	word-break: break-all;
+}
+.cursor-pointer
+{
+	cursor: pointer;
+}
+
+/*Javascript modal costumizer*/
+#globalModal
+{
+	/*width: 100%*/
+}
+	#globalModal .modal-dialog
+	{
+		width: 100%;
+		margin: 0px !important;
+	}
+	#globalModal .modal-content
+	{
+		height: 100vh;
+		border-radius: 0px;
+	}
+	#globalModal .modal-footer
+	{
+		position: absolute;
+	    width: 100%;
+	    bottom: 0px;
+	}
+
+[show-tab].mdl-tabs__tab.active
+{
+    border-bottom: 2px solid;
+}
+.material-icons.center
+{
+	vertical-align: middle !important;
+}

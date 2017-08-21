@@ -1,0 +1,12 @@
+<div class="panel panel-default" ng-if="$$autosave.localstorage && $$autosave.records.length > 0">
+	<div class="panel-body" style="height: 400px; overflow-y: auto;">
+		<div ng-autosave>
+			<div class="list-group">
+				<a class="list-group-item" ng-repeat="as in $$autosave.records track by $index" ng-click="select_autosave($index)">{{as.title?as.title:'untitled'}}</a>
+			</div>
+		</div>	
+	</div>
+	<div class="panel-footer">
+		<button class="btn btn-xs btn-primary" ng-click="$$autosave.close()">Close</button>
+	</div>
+</div>

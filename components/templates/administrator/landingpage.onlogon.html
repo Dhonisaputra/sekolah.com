@@ -1,0 +1,16 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+	<div data-if="is_auth">	
+		<div class="mdl-layout__drawer" ng-include="'templates/administrator/components/navbar.html'"></div>
+	</div>
+
+	<main class="mdl-layout__content">
+		<div class="page-content">
+			
+			<div  style="padding-top: 10px;">
+				<ng-view></ng-view>
+			</div>
+
+		</div>
+	</main>	
+	
+</div>

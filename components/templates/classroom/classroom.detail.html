@@ -1,0 +1,372 @@
+<style type="text/css">
+	.mdl-list__item-icon
+	{
+		margin-right: 12px !important;
+	}
+	#sidebar-list .mdl-list__item
+	{
+		padding: 10px !important;
+	}
+	.thumbnail-menu
+	{
+
+	}
+		.thumbnail-menu--box
+		{
+
+		}
+			.thumbnail-menu--box--icon
+			{
+				font-size: 60px !important;
+			}
+			.thumbnail-menu--box-description
+			{
+				margin: 30px 0px 15px 0px;
+				padding: 10px;
+				height: 100px;
+				overflow-y: auto;
+			}
+</style>
+
+<!-- Colored raised button -->
+<a href="#/classroom/open/{{detail_class.code}}/new_schedule" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+	Tambah jadwal
+</a>
+
+
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar">
+      <a href="#starks-panel" role="presentation" class="mdl-tabs__tab active" show_tab>Dashboard</a>
+      <a href="#today-panel" role="presentation" class="mdl-tabs__tab" show_tab>Jadwal hari ini</a>
+      <a href="#student-panel" role="presentation" class="mdl-tabs__tab" show_tab>Students</a>
+      <a href="#targaryens-panel" role="presentation" class="mdl-tabs__tab" show_tab>About</a>
+  </div>
+</div>
+
+<div class="tab-content row">
+	
+		<div role="tabpanel" class="tab-pane mdl-tabs__panel active" id="starks-panel">
+			<div class="">
+				<div class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div ng-include="'sidebar.tmp'"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="row thumbnail-menu sr-only">
+							
+						<div class="col-md-4">
+							<div class="panel panel-default thumbnail-menu--box">
+								<div class="panel-body">
+									<div class="text-center">
+										<i class="thumbnail-menu--box--icon material-icons">school</i>
+									</div>
+									<div class="thumbnail-menu--box-description text-center">
+										Mulai kelas {{detail_class.name}} sekarang. Silahkan klik tombol dibawah ini!
+									</div>
+
+									<div class="text-center form-group">
+										<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">										
+											<i class="material-icons">play_arrow</i>
+											Start
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+								
+						<div class="col-md-4">
+							<div class="panel panel-default thumbnail-menu--box">
+								<div class="panel-body">
+									<div class="text-center">
+										<i class="thumbnail-menu--box--icon material-icons">school</i>
+									</div>
+									<div class="thumbnail-menu--box-description text-center">
+										Mulai kelas {{detail_class.name}} sekarang. Silahkan klik tombol dibawah ini!
+									</div>
+
+									<div class="text-center form-group">
+										<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">										
+											<i class="material-icons">stop</i>
+											selesai
+										</button>
+										<a href="#/classroom/open/{{detail_class.code}}/{{schedule.id}}" class="mdl-button mdl-js-button btn-danger">										
+											Detail
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					
+						<div class="col-md-4">
+							<div class="panel panel-default thumbnail-menu--box">
+								<div class="panel-body">
+									<div class="text-center">
+										<i class="thumbnail-menu--box--icon material-icons">people</i>
+									</div>
+									<div class="thumbnail-menu--box-description text-center">
+										Daftar murid yang mengikuti kelas {{detail_class.name}}. Silahkan klik tombol dibawah untuk membuka daftar murid!
+									</div>
+
+									<div class="text-center form-group">
+										<button href="#student-panel" role="presentation" show_tab class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">										
+											Daftar Murid
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					
+						<div class="col-md-4">
+							<div class="panel panel-default thumbnail-menu--box">
+								<div class="panel-body">
+									<div class="text-center">
+										<i class="thumbnail-menu--box--icon material-icons">settings</i>
+									</div>
+									<div class="thumbnail-menu--box-description text-center">
+										Ubah setelan kelas ini. Klik tombol di bawah untuk mengganti setelan.
+									</div>
+
+									<div class="text-center form-group">
+										<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">										
+											<i class="material-icons">settings</i>
+											Setelan
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="col-md-12">
+						<div ng-include="'dashboard_schedules_list.tmp'"> </div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div role="tabpanel" class="tab-pane mdl-tabs__panel" id="student-panel">
+			<div class="">
+				<div class="col-md-3">
+					<div ng-include="'sidebar.tmp'"> </div>
+				</div>
+				<div class="col-md-9">
+					<div ng-include="student_template"> </div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane mdl-tabs__panel" id="today-panel">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div ng-include="'today_list.tmp'"> </div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane mdl-tabs__panel" id="targaryens-panel">
+			<ul>
+				<li>Viserys</li>
+				<li>Daenerys</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/ng-template" id="today_list.tmp">
+	<h3>Jadwal pertemuan hari ini</h3>
+	<div class="table-responsive">
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-1">No.</th>
+					<th class="col-md-5">Guru</th>
+					<th class="col-md-1">Jumlah siswa</th>
+					<th class="col-md-1">Waktu</th>
+					<th class="col-md-3">action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="todays.length < 1 || !todays">
+					<td class="text-center" colspan ="5">Tidak ditemukan sesi</td>
+				</tr>
+				<tr ng-repeat="session in todays track by $index" ng-if="todays.length > 0">
+					<td class="col-md-1">{{$index+1}}</td>
+					<td class="col-md-5">{{session.teacher}}</td>
+					<td class="col-md-1">{{session.participants.length}}</td>
+					<td class="col-md-1">{{session.held_at}}</td>
+					<td class="col-md-3">
+						<button class="btn btn-primary btn-xs" ng-click="send_sms_attention_under(session)" ng-if="is_schedule_under_minutes(session,10)">SMS</button>
+						<a href="#/classroom/open/{{routeParams.code}}/schedule/{{routeParams.schedule}}/session/{{session.id_session}}" class="btn btn-primary btn-xs" ng-if="is_schedule_under_minutes(session,2)">Detail session</a>
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</script>
+<script type="text/ng-template" id="students_list.tmp">
+	<div class="form-group">
+		<button class="mdl-button mdl-js-button mdl-button--raised" ng-click="set_student_template('students_add.tmp')">
+			Add Students
+		</button>
+	</div>
+
+	<div class="table-responsive">
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-1">No.</th>
+					<th class="col-md-9">Name</th>
+					<th class="col-md-2">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="detail_class.participants.length > 0" ng-repeat="student in detail_class.participants track by $index">
+					<td class="col-md-1">{{$index+1}}</td>
+					<td class="col-md-9">{{student.student}}</td>
+					<td class="col-md-2">
+						<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="add_to_classroom(student, $index)">
+						  <i class="material-icons">remove</i>
+						</button>
+						<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="add_to_classroom(student, $index)">
+						  <i class="material-icons">swap_horiz</i>
+						</button>
+					</td>
+				</tr>
+				<tr ng-if="detail_class.participants.length < 1">
+					<td colspan="3" class="text-center">No data found!</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</script>
+
+<script type="text/ng-template" id="sidebar.tmp">
+	<ul class="mdl-list" id="sidebar-list">
+		<li class="mdl-list__item mdl-list__item--three-line">
+			<span class="mdl-list__item-primary-content">
+				<i class="material-icons mdl-list__item-icon">people</i>
+				<span>Students</span> <span class="label label-danger" ng-if="detail_class.capacity <= detail_class.participants.length">Full</span>
+				<span class="mdl-list__item-text-body">
+					{{detail_class.participants.length}} Students registered 
+				</span>
+			</span>
+		</li>
+		<li class="mdl-list__item mdl-list__item--three-line">
+			<span class="mdl-list__item-primary-content">
+				<i class="material-icons mdl-list__item-icon">school</i>
+				<span>Teacher</span>
+				<span class="mdl-list__item-text-body">
+					Mr/Mrs. {{detail_class.teacher}}
+				</span>
+			</span>
+		</li>
+		<li class="mdl-list__item mdl-list__item--three-line">
+			<span class="mdl-list__item-primary-content">
+				<i class="material-icons mdl-list__item-icon">date_range</i>
+				<span>Schedule</span>
+				<span class="mdl-list__item-text-body" ng-repeat="schedule in detail_class.schedules">
+					Every {{schedule.held_on_days}}, at {{schedule.held_at}}
+				</span><br>
+			</span>
+		</li>
+	</ul>
+</script>
+
+<script type="text/ng-template" id="students_add.tmp">
+	<div class="form-group">
+		<button class="mdl-button mdl-js-button mdl-button--raised" ng-click="set_student_template('students_list.tmp')">
+			<i class="material-icons">chevron_left</i> Back
+		</button>
+	</div>
+	<div class="form-group">
+		<input type="search" name="" class="form-control" placeholder="Search students">
+	</div>
+	<div class="form-group">
+		<button class="btn btn-sm btn-primary" ng-click="search_student_not_in_existed_list()">Search</button>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-1">No.</th>
+					<th class="col-md-9">Name</th>
+					<th class="col-md-2">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="students_can_be_added.length > 0 && detail_class.capacity > detail_class.participants.length" ng-repeat="student in students_can_be_added.data track by $index">
+					<td class="col-md-1">{{$index+1}}</td>
+					<td class="col-md-9">{{student.name}}</td>
+					<td class="col-md-2">
+						<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="add_to_classroom(student, $index)">
+						  <i class="material-icons">add</i>
+						</button>
+
+					</td>
+				</tr>
+				<tr ng-if="students_can_be_added.length < 1 && detail_class.capacity > detail_class.participants.length">
+					<td colspan="3" class="text-center">No data found!</td>
+				</tr>
+
+				<tr ng-if="detail_class.capacity <= detail_class.participants.length">
+					<td colspan="3" class="text-center">Sorry Your class is full of capacity. please open more class!</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</script>
+
+<script type="text/ng-template" id="dashboard_schedules_list.tmp">
+	<div class="panel panel-default">
+	<div class="table-responsive panel-body">
+		<table class="table table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Teacher</th>
+					<th>Schedule</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="schedule in detail_class.schedules">
+					<td> {{$index+1}} </td>
+					<td> {{schedule.teacher}} </td>
+					<td> {{schedule.held_on_days}}, at {{schedule.held_at}} </td>
+					<!-- <td> {{class.capacity}}/{{class.participants.length}} </td> -->
+					<td>  
+						<!-- Primary-colored flat button -->
+						<a href="#/classroom/open/{{detail_class.code}}/schedule/{{schedule.id}}" class="btn btn-sm btn-primary">
+							Detail
+						</a>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	<ul class="demo-list-control mdl-list sr-only">
+		<li class="mdl-list__item " ng-repeat="schedule in detail_class.schedules">
+			<span class="mdl-list__item-primary-content">
+				<i class="material-icons  mdl-list__item-icon">school</i>
+				Every {{schedule.held_on_days}}, at {{schedule.held_at}}
+			</span>
+			<span class="mdl-list__item-secondary-action">
+				<!-- Icon button -->
+				<a href="#/classroom/open/{{detail_class.code}}/{{schedule.id}}/{{schedule.session_active.id_session}}" class="mdl-button mdl-js-button mdl-button--raised" ng-if="schedule.session_active">
+				  	Open <i class="material-icons"> chevron_right </i>
+				</a>
+				<a href="#/classroom/open/{{detail_class.code}}/{{schedule.id}}" class="mdl-button mdl-js-button mdl-button--raised" ng-if="!schedule.session_active">
+				  	Open <i class="material-icons"> chevron_right </i>
+				</a>
+				<button class="mdl-button mdl-js-button mdl-button--raised  mdl-button--colored">
+				  	Start Class<i class="material-icons"> play_arrow </i>
+				</button>
+
+			</span>
+		</li>
+	</ul>
+</script>

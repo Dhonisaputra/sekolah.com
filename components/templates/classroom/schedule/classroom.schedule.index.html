@@ -1,0 +1,129 @@
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-body" ng-include="'sidebar.tmp'">
+				
+			</div>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="form-group">
+			<a href="#/classroom/open/{{detail_schedule.class_code}}" class="btn btn-primary btn-sm"> <i class="glyphicon glyphicon-chevron-left"></i> Dashboard Classroom </a>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+					<div class="mdl-tabs__tab-bar">
+						<a href="#participant-panel" class="mdl-tabs__tab active" show_tab  role="tab">Daftar siswa</a>
+						<a href="#session-panel" class="mdl-tabs__tab" show_tab  role="tab">Daftar sesi pertemuan</a>
+					</div>
+					<div class="tab-content">
+						<div class="mdl-tabs__panel active tab-pane" id="participant-panel" role="tabpanel">
+							<div ng-include="'participants_list.tmp'"></div>
+						</div>
+						<div class="mdl-tabs__panel tab-pane" id="session-panel" role="tabpanel">
+							
+							<div ng-include="'sessions_list.tmp'"></div>
+						</div>
+				
+					</div>
+				</div>
+
+			</div>	
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="participants_list.tmp">
+	<a href="#/classroom/open/{{detail_schedule.class_code}}/schedule/{{detail_schedule.id}}/add/participants" class="btn btn-primary btn-sm"> tambah siswa </a>
+	<h3>Siswa yang mengikuti jadwal ini</h3>
+	<div class="table-responsive">
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-1">No.</th>
+					<th class="col-md-9">Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="detail_schedule.participants.length>=detail_schedule.capacity">
+					<td class="text-center" colspan="3">Kapasitas kelas telah habis, silahkan buat jadwal baru <br> <a href="#/classroom/open/{{detail_schedule.class_code}}/new_schedule" class="btn btn-primary btn-sm">Buat jadwal</a> </td>
+				</tr>
+				<tr ng-if="detail_schedule.students.length < 1">
+					<td class="text-center" colspan ="3">Tidak ditemukan siswa</td>
+				</tr>
+				<tr ng-repeat="student in detail_schedule.participants track by $index" ng-if="detail_schedule.participants.length > 0">
+					<td class="col-md-1">{{$index+1}}</td>
+					<td class="col-md-9">{{student.student}}</td>
+					
+				</tr>
+				<tr ng-if="students_can_be_added.length < 1 && detail_class.capacity > detail_class.participants.length">
+					<td colspan="3" class="text-center">No data found!</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</script>
+<script type="text/ng-template" id="sessions_list.tmp">
+	<h3>Siswa yang mengikuti jadwal ini</h3>
+	<div class="table-responsive">
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-1">No.</th>
+					<th class="col-md-9">Name</th>
+					<th class="col-md-1">participant</th>
+					<th class="col-md-1">action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-if="sessions.length < 1">
+					<td class="text-center" colspan ="4">Tidak ditemukan sesi</td>
+				</tr>
+				<tr ng-repeat="session in sessions track by $index" ng-if="sessions.length > 0">
+					<td class="col-md-1">{{$index+1}}</td>
+					<td class="col-md-9">{{session.session_started_at}}</td>
+					<td class="col-md-1">{{session.participants.length}}/{{session.attendances.length}}</td>
+					<td class="col-md-1">
+						<a href="#/classroom/open/{{routeParams.code}}/schedule/{{routeParams.schedule}}/session/{{session.id_session}}" class="btn btn-primary btn-sm">Detail session</a>
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</script>
+
+<script type="text/ng-template" id="sidebar.tmp">
+	<ul class="mdl-list" id="sidebar-list">
+		<li class="mdl-list__item mdl-list__item--three-line">
+			<span class="mdl-list__item-primary-content">
+				<i class="material-icons mdl-list__item-icon">people</i>
+				<span>Students</span> <span class="label label-danger" ng-if="detail_schedule.capacity <= detail_schedule.participants.length">Full</span>
+				<span class="mdl-list__item-text-body">
+					{{detail_schedule.participants.length}} Students registered 
+				</span>
+			</span>
+		</li>
+		<li class="mdl-list__item mdl-list__item--three-line">
+			<span class="mdl-list__item-primary-content">
+				<i class="material-icons mdl-list__item-icon">school</i>
+				<span>Teacher</span>
+				<span class="mdl-list__item-text-body">
+					Mr/Mrs. {{detail_schedule.teacher}}
+				</span>
+			</span>
+		</li>
+		<li class="mdl-list__item mdl-list__item--three-line">
+			<span class="mdl-list__item-primary-content">
+				<i class="material-icons mdl-list__item-icon">date_range</i>
+				<span>Schedule</span>
+				<span class="mdl-list__item-text-body">
+					Every {{detail_schedule.held_on_days}}, at {{detail_schedule.held_at}}
+				</span><br>
+			</span>
+		</li>
+	</ul>
+</script>

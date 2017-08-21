@@ -1,0 +1,26 @@
+<section>
+	<form ng-submit="processing_signup()">
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" class="form-control" ng-model="signup_name" name="" ng-required>
+		</div>
+		<div class="form-group">
+			<label>Email</label>
+			<input type="email" class="form-control" ng-model="signup_email" name="" ng-required>
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" class="form-control" ng-model="signup_password" name="" ng-required>
+		</div>
+		<div class="form-group">
+			<label>Repeat password</label>
+			<input type="password" class="form-control" ng-model="signup_check_password" name="" >
+			<div class="form-helper text-danger" ng-if="error_password && error_password == 1">Password tidak cocok</div>
+			<div class="form-helper text-success" ng-if="error_password && error_password == 0">Password cocok</div>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" type="submit">Submit</button>
+		</div>
+
+	</form>
+</section>

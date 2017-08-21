@@ -1,0 +1,135 @@
+<style type="text/css">
+	.accordion
+	{
+		margin-bottom: 0px;
+		/*border-bottom: */
+	}
+	[ng-accordion].panel-heading
+	{
+		border-bottom: none !important;
+	}
+</style>
+
+<div ng-init="get_post()">
+	
+</div>
+
+<script type="text/javascript" src="components/assets/client/plugins/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript" src="components/assets/client/plugins/ckeditor/adapters/jquery.js"></script>
+
+<div class="container-fluid">
+	<div class="form-group">
+		<!-- Raised button -->
+		<a class="mdl-button mdl-js-button mdl-button--raised" ng-href="#/articles">
+			<i class="material-icons">chevron_left</i> Back
+		</a>
+		<a class="mdl-button mdl-js-button btn-primary" ng-href="#/articles/new">
+			Create article
+		</a>
+	</div>
+		<div class="row">
+			<div class="col-lg-9 col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-body">
+
+						<div class="form-group">
+							<label>Title</label>
+							<input type="text" name="title" class="form-control input-lg title title_article" ng-model="datapost.title" ng-keyup="slug()">
+						</div>
+						<div class="form-group slug" ng-slug>
+							<div class="">{{datapost.slug_start}}</div>
+							<div class="" ng-if="$$categories.get_category_primary() !== ''">{{$$categories.get_name_category_primary()}}/</div>
+							<div class=""><input type="" id="slug_end" name="" ng-model="datapost.slug_end" ng-change="$$slug.method.auto_fixing_slug(datapost.slug_end, 'datapost.slug_end')"></div>
+							<div class=""><button class="btn btn-primary btn-xs" ng-click="$$slug.method.check_permalink(datapost.slug_end, 'datapost.slug_end', {article: datapost.id_article})">Check Perm</button></div>
+						</div>
+						<!-- <div class="form-group slug">
+							<div class="">{{datapost.slug_start}}</div>
+							<div class=""><input type="" id="slug_end" name="" ng-model="datapost.slug_end"></div>
+						</div> -->
+						<div class="form-group">
+							<label>Content</label>
+							<textarea class="form-control" name="content" ng-model="datapost.content"></textarea>
+						</div>
+
+						<div class="form-group">
+							<ng-include src="'component-new-post'"></ng-include>
+						</div>
+					
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-lg-3 col-md-3">
+				<div class="panel panel-default row accordion flat">
+					<div class="panel-heading" ng-accordion="#post-setting"  accordion-group="sidebar" > <i class="material-icons center">settings</i> Status</div>
+					<div class="panel-body" id="post-setting">
+						<div class="form-group">
+							<div class="checkbox"><label><input type="radio" name="post_status" value="publish" ng-model="datapost.post_status">Publish</label></div>	
+							<div class="checkbox"><label><input type="radio" name="post_status" value="draft" ng-model="datapost.post_status">Draft</label></div>	
+							<button class="btn btn-primary btn-block" ng-click="update_post()">Update</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default row accordion flat">
+					<div class="panel-heading" ng-accordion="#post-summary" ng-accordion="[ng-categories-panel]" accordion-group="sidebar" ><i class="material-icons center">short_text</i> Summary</div>
+					<div class="panel-body" id="post-summary">
+						<div class="form-group">
+							<textarea class="form-control" ng-model="datapost.summary"></textarea>
+						</div>
+					</div>
+				</div>
+				
+				<div class="panel panel-default row accordion flat">
+					<div class="panel-heading" ng-accordion="[ng-categories-panel]" accordion-group="sidebar" ><i class="material-icons center">list</i> Categories</div>
+					<div class="panel-body" ng-categories-panel>
+					</div>
+				</div>
+				<div class="panel panel-default row accordion flat">
+					<div class="panel-heading" ng-accordion="[ng-keyword-panel]" accordion-group="sidebar" ><i class="material-icons center">local_offer</i> Keywords</div>
+					<div class="panel-body" ng-keyword-panel >
+					</div>
+				</div>
+
+			</div>
+		</div>
+</div>
+
+<script type="text/ng-template" id="component-new-post">
+	
+	<div ng-upload-panel></div>
+	<div>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#tags" aria-controls="tags" role="tab" show-tab data-toggle="tab">Tags</a></li>
+		<li role="presentation"><a href="#sosmed" aria-controls="sosmed" role="tab" show-tab data-toggle="tab">Social media</a></li>
+		<li role="presentation"><a href="#archive" aria-controls="sosmed" role="tab" show-tab data-toggle="tab">Linked with other article</a></li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="tags">
+				<div ng-if="datapost.keywords.length < 1"> No Tags found! </div>
+				<div ng-if="datapost.keywords.length > 0">
+					<div class="tag-group">
+						<div class="tag-group-item" id="tag-selected-{{$index}}" ng-repeat="item in datapost.keywords" ng-if="datapost.keywords != '' ">
+							{{item}} 
+							<input type="hidden" name="tag_selected[]" value="{{item}}">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="removeTagSelected($index)">
+							  	<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div role="tabpanel" class="tab-pane" id="sosmed">...</div>
+			<div role="tabpanel" class="tab-pane" id="archive">
+				<div ng-related-article></div>
+			</div>
+		</div>
+
+	</div>
+</script>

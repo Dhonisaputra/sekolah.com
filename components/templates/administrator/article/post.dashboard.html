@@ -1,0 +1,59 @@
+
+<div class="container-fluid">
+	<div class="form-group">
+		<a href="#/articles/new" class="btn btn-primary"> Create New Article </a>
+	</div>
+	<hr>
+	<div class="table-articles" name="article_pgn" pagination-options="{{article_pagination_options}}" pagination pagination-target="#tbody" pagination-size="5" ng-if="article.length > 0">
+		<div class="form-group">
+			<select ng-options="item for item in [5,10,15,20] track by item"  data-ng-model="pagination.component.pageSize" ng-change="pagination.set_page_size(pagination.component.pageSize)">
+			</select>
+		</div>
+		<div class="form-group">
+			<input type="text" name="" pagination-search="article_pgn" pagination-search-column="title" >
+		</div>
+		<table class="table table-bordered table-hover table-striped" >
+			<thead>
+				<tr>
+					<th class="col-md-3">Judul</th>
+					<th class="col-md-2">Tag</th>
+					<th class="col-md-1">Tgl dibuat</th>
+					<th class="col-md-1">Article Type</th>
+					<th class="col-md-1">Status</th>
+					<th class="col-md-1">Action</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+				<tr ng-repeat="item in article | sortBy : '-posted_time'">
+					<td class="col-md-3"><span text-collapse text-collapse-length="50" text-collapse-text="{{item.title}}"></span></td>
+					<td class="col-md-2"><span text-collapse text-collapse-length="50" text-collapse-text="{{item.post_tag}}"></span></td>
+					<td class="col-md-1">{{item.posted_time | date}}</td>
+					<td class="col-md-1">{{item.article_type}}</td>
+					<td class="col-md-1">
+						{{item.post_status}}
+						<!-- <select class="form-control">
+							<option ng-selected="{{item.post_status == 'draft'}}">Draft</option>
+							<option ng-selected="{{item.post_status == 'publish'}}">Publish</option>
+						</select> -->
+					</td>
+					<td class="col-md-1">
+						<a href="#/articles/edit?id={{item.id_article}}" class="mdl-button mdl-js-button mdl-button--icon">
+							<i class="material-icons">edit</i>
+						</a>
+						<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="remove_articles(item)">
+							<i class="material-icons">delete</i>
+						</button>
+						<a href="{{open_article(item)}}" target="_blank" class="mdl-button mdl-js-button mdl-button--icon">
+							<i class="material-icons">link</i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="btn-group" role="group" aria-label="...">
+		  	<button type="button" class="btn btn-default" ng-click="open_page(page)" ng-repeat="page in pagination">{{page.page}}</button>
+		  	<!-- <button type="button" class="btn btn-default {{item == $$pagination.instances.article_pgn.get_currentPage()? 'btn-primary' : ''}}" ng-click="$$pagination.instances.article_pgn.set_page(item)" ng-repeat="item in $$pagination.instances.article_pgn.pages_item()">{{item}}</button> -->
+		</div>
+	</div>
+	
+</div>

@@ -1,0 +1,99 @@
+<div class="form-group">
+    <a class="mdl-button mdl-js-button mdl-button--icon" tooltip data-tooltip="Back to settings template" href="#/settings">
+        <i class="material-icons">arrow_back</i>
+    </a>
+</div>
+<hr>
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    <div class="mdl-tabs__tab-bar">
+        <a href="#routing-panel" class="mdl-tabs__tab is-active active" show-tab>Routing</a>
+        <a href="#pages-panel" class="mdl-tabs__tab" show-tab>Pages</a>
+        <a href="#settings-panel" class="mdl-tabs__tab" show-tab>Settings</a>
+        <a href="#/settings/template/{{routeParams.template}}/schema.org" class="mdl-tabs__tab">Schema.org</a>
+    </div>
+
+    <div class="tab-content">
+        
+        <div  role="tabpanel" class="mdl-tabs__panel tab-pane active" id="routing-panel">
+            <div class="form-group">
+                <!-- Flat button -->
+                <button class="mdl-button mdl-js-button" ng-click="add_routing()">
+                    Tambah routing
+                </button>
+
+            </div>
+            <table class="table table-stripped table-hover table-condensed table-bordered" id="table-routing">
+                <thead>
+                    <tr class="row">
+                        <th class="col-md-8">Routing</th>
+                        <th class="col-md-3">Page</th>
+                        <th class="col-md-1">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row" ng-repeat="item in settings.routing track by $index">
+                        <td class="col-md-8">
+                            <input type="input" name="routing_key[]" class="input-sm form-control routing_key" value="{{item.key}}">
+                        </td>
+                        <td class="col-md-3">
+                            <input type="input" name="routing_value[]" class="input-sm form-control routing_value" value="{{item.value}}">
+                        </td>
+                        <td class="col-md-1">
+                            <!-- Icon button -->
+                            <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="save_routing($event, $index, item)" ng-if="item.key==''">
+                              <i class="material-icons">save</i>
+                            </button>
+                            <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="delete_routing($event, $index, item)">
+                              <i class="material-icons">delete</i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div  role="tabpanel" class="mdl-tabs__panel tab-pane" id="pages-panel">
+            <table class="table table-stripped table-hover table-condensed table-bordered" id="table-routing">
+                <thead>
+                    <tr class="row">
+                        <th class="col-md-11">Page</th>
+                        <th class="col-md-1">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row" ng-repeat="item in settings.pages track by $index">
+                        <td class="col-md-11">
+                            {{item}}
+                        </td>
+                        <td class="col-md-1">
+                            <!-- Icon button -->
+                            <a class="mdl-button mdl-js-button mdl-button--icon" href="#/settings/template/{{routeParams.template}}/page/{{item}}">
+                              <i class="material-icons">edit</i>
+                            </a>
+                            <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="delete_routing($event, $index)">
+                              <i class="material-icons">delete</i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+           
+        </div>
+        <div  role="tabpanel" class="mdl-tabs__panel tab-pane" id="settings-panel">
+            <ul>
+                <li>Viserys</li>
+                <li>Daenerys</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="sr-only" id="clone-only-element">
+    <tr class="row clone-routing">
+        <td class="col-md-9">
+            <input type="input" name="routing_key[]" class="input-sm form-control" value="">
+        </td>
+        <td class="col-md-3">
+            <input type="input" name="routing_value[]" class="input-sm form-control" value="">
+        </td>
+    </tr>
+</div>

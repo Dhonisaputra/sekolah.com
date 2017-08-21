@@ -1,0 +1,305 @@
+<style type="text/css">
+    [ng-images]
+    {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: space-around;
+    }
+    .image-box
+    {
+        cursor: pointer;
+        width: 180px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        height: 180px;
+        display: inline-block;
+        box-shadow: 0px 0px 1px #333;
+        background-color: white;
+        position: relative;
+    }
+    .image-box.image-box--selected
+    {
+        box-shadow: 0px 0px 1px #4183D7;
+        background-color: #4183D7;
+        padding: 10px;
+    }
+        .image-box--image-preview
+        {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+        }
+        .image-box--image-description
+        {
+            margin: 5px 0px;
+            padding: 0px 5px;
+            height: 50px;
+            border-top: 1px solid #eee;
+        }
+        .image-box--selection
+        {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            color: #eee;
+        }
+            .image-box--selection .material-icons
+            {
+            }
+        .image-box--selection-circle
+        {
+        }
+            .image-box--selection--selected
+            {
+                color: #4183D7;
+
+            }
+        .properties-images
+        {
+            height: 100vh;
+            position: fixed;
+            right: 0px;
+            top: 0px;
+            border-left: 1px solid #4183D7;
+            padding-top: 15px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+            .properties-images .properties-images--layer-no-selection
+            {
+                height: 100vh;
+                width: 100%;
+                top: 0;
+                left: 0;
+                z-index: 4;
+                position: absolute;
+                background-color: rgba(0,0,0,.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+</style>
+<script type="text/javascript" src="components/assets/client/plugins/jsupload/jsdata.upload.js"></script>
+
+<!-- define if userlevel is admin, set right box -->
+<div  class="{{$$credential.public.userlevel == 'admin' ? 'col-md-9' : 'col-md-12 col-lg-12'}}">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a ng-click="open_state_append()" aria-controls="home" role="tab" data-toggle="tab">Attach to editor</a></li>
+        <li role="presentation"><a ng-click="openTab = 'upload'" aria-controls="settings" role="tab" data-toggle="tab">Upload Image</a></li>
+        <li role="presentation"><a ng-click="open_state_editor()" aria-controls="profile" role="tab" data-toggle="tab">Image on editor</a></li>
+        <!-- <li role="presentation"><a ng-click="openTab = 'settings'" aria-controls="messages" role="tab" data-toggle="tab">Image settings</a></li> -->
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane {{openTab == 'attach'? 'active' : ''}}"><div ng-include src="'attach.atc'"></div></div>
+        <div role="tabpanel" class="tab-pane {{openTab == 'upload'? 'active' : ''}}"><div ng-include src="'upload.atc'"></div></div>
+        <div role="tabpanel" class="tab-pane {{openTab == 'editor'? 'active' : ''}}"><div ng-include src="'images_in_editor.atc'"></div></div>
+        <div role="tabpanel" class="tab-pane {{openTab == 'settings'? 'active' : ''}}">Settings</div>
+    </div>
+</div>
+
+<div  class="col-md-3 properties-images" ng-if="$$credential.public.userlevel == 'admin'">
+    <div class="properties-images--layer-no-selection" ng-if="selected_length() < 1" >Please select some images first!</div>
+    <div class="form-group" ng-if="selected_length()==1">
+        <label>Url</label>
+        <input type="text" class="input-sm form-control" name="" ng-model="datasetting.src_slug" ng-keyup="make_slug_images()" placeholder="Set new permalink for this images">
+        <small id="helpBlock" class="help-block text-warning break-all-word">{{slug_image.slug_head}}{{slug_image.slug_result}}</small>
+    </div>
+    <form ng-click="submit_settings();">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="input-sm form-control" name="" ng-model="datasetting.title">
+            <small id="helpBlock" class="help-block text-warning" ng-if="selected_length()>1">You are selected {{selected_length()}} images. all images attribute's values will be replaced with this.</small>
+        </div>
+
+        <!-- <div class="form-group">
+            <label>Caption</label>
+            <textarea class="form-control" ng-model="datasetting.caption"></textarea>
+        </div> -->
+
+        <div class="form-group">
+            <label>Alt</label>
+            <input type="text" class="input-sm form-control" name="" ng-model="datasetting.alt">
+        </div>
+
+        <div class="row" ng-if="selected_length()<2">
+            <div class="col-md-3 col-sm-6 col-xs-6 col-lg-3">
+                
+                <div class="form-group">
+                    <label>Height</label>
+                    <input type="text" class="input-sm form-control" name="" ng-model="datasetting.height" ng-keyup="adjust_aspect_ratio('height')">
+                </div>
+                <div class="form-group">
+                    <label>width</label>
+                    <input type="text" class="input-sm form-control" name="" ng-model="datasetting.width" ng-keyup="adjust_aspect_ratio('width')">
+                </div>
+
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" ng-model="datasetting.description"></textarea>
+        </div> -->
+
+        <!-- <div class="form-group">
+            <label>
+                <input type="checkbox" name="" ng-model="datasetting.save_to_database" checked=""> save to database
+            </label>
+        </div> -->
+
+        <div class="form-group" ng-if="get_tab() == 'editor'">
+            <button class="btn btn-primary btn-sm" ng-click="update_settings()">Update</button>
+        </div>
+        <div class="form-group" ng-if="get_tab() == 'attach'">
+            <button class="btn btn-primary btn-sm" ng-if="select_file" ng-click="insert_to_editor.adding_image_to_ckeditor()">Add selected image to Editor</button>
+            <button class="btn btn-warning btn-sm" ng-click="reset_all_images()">Reset</button>
+        </div>
+
+        <div class="form-group">
+            <a class="text-danger" ng-click="remove_permanently_selected_images()">Remove Permanently selected images</a>
+        </div>
+
+    </form>
+</div>
+
+
+
+<script type="text/ng-template" id="attach.atc">
+    
+    <div ng-if="select_file">
+        <strong> {{selected_length()}} images selected... </strong>
+    </div>
+    <!-- <button class="btn btn-primary" ng-click="returnFileUrl()">Select File</button> -->
+    <hr>
+    <div ng-include="'images_panel.atc'"></div>
+</script>
+
+<script type="text/ng-template" id="upload.atc">
+
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#upload_using_browser" class="mdl-tabs__tab active" show-tab>Select Files...</a>
+            <a href="#upload_using_url" class="mdl-tabs__tab" show-tab>Upload by URL</a>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="upload_using_browser">
+                <div>
+                    <input type="file" name="upload_new_image" id="upload-new-image" class="form-control" multiple="" onchange="angular.element(this).scope().on_change_input_upload_image()">
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="upload_using_url">
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="text" class="form-control upload_images_url" ng-model="upload_images_url" ng-change="image_source_url()" placeholder="Paste URL here.">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" ng-click="process_upload_images_url()">Upload images</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+
+    <hr>
+    <div ng-if="image_upload_preview.length > 0">
+        <div class="image-box" ng-repeat="item in image_upload_preview " id='file-{{item.key}}'>
+            <div class="image-box--image-preview" style="background-image: url({{item.result}});"></div>
+            <div class="progress">
+                <div class="progress-bar progress-bar--file-{{item.key}}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 0em;">
+                    0%
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="images_in_editor.atc">
+            
+        <div ng-init="select_images_from_article(true, 'default')">
+        
+            <button class="btn btn-danger btn-sm" ng-if="selected_length()>0 && is_sub_state('default')" ng-click="remove_from_article()"> Delete Selected Images </button>
+
+            <button class="btn btn-primary btn-sm" ng-if="selected_length() == 1 && is_sub_state('default')" ng-click="replace_image_on_editor()"> Replace with ... </button>
+
+            <!-- reset and cancel button -->
+            <button class="btn btn-warning btn-sm " ng-if="is_sub_state('replace')" ng-click="cancel_select_from_article()"> Cancel </button>
+            <button class="btn btn-warning btn-sm " ng-if="is_sub_state('default') && selected_length() > 0" ng-click="reset_all_images();"> Reset </button>
+
+        </div>
+        <hr>
+        <!-- if not found any image -->
+        <div ng-if="!replace_image_state && images_on_editor_records.length <= 0">
+            <center>No images found!</center>
+        </div>
+        <div ng-if="!replace_image_state && images_on_editor_records.length > 0">
+            <div class="image-box images_on_editor_records_{{item.id_files}} {{is_in_selected(item.id_files, 'id_files')? 'image-box--selected' : ''}}" ng-repeat="item in images_on_editor_records track by $index" ng-click="add_to_selected(item)" >
+                <div class="image-box--selection" ng-if="select_file">
+                    <div ng-if="!is_in_selected(item.id_files, 'id_files')" class="image-box--selection-circle"><i class="material-icons">radio_button_unchecked</i></div>
+                    <div ng-if="is_in_selected(item.id_files, 'id_files')" class="image-box--selection-circle image-box--selection--selected"><i class="material-icons">check_circle</i></div>
+                </div>
+                <div class="image-box--image-preview" style="background-image: url({{item.file_url}});"></div>
+            </div>
+        </div>
+
+        <div ng-if="replace_image_state">
+            <div ng-include="'images_panel.atc'"></div>
+            
+            <!-- <div class="image-box images_on_replace_records_{{item.id_files}}" ng-repeat="item in images_on_replace_records " ng-click="replace_current_image(item)" >
+                <div class="image-box--image-preview" style="background-image: url({{item.file_url}});"></div>
+            </div> -->
+        </div>
+</script>
+
+<script type="text/ng-template" id="images_panel.atc">
+    <div class="form-group">
+        <button class="btn btn-primary btn-xs" ng-if="is_state('images_on_other_editor')" ng-click="show_image_uploaded()"> Show images uploaded </button>
+        <button class="btn btn-primary btn-xs" ng-if="is_state('default')" ng-click="show_images_on_articles();"> Show images in articles </button>
+    </div>
+    <hr>
+    <div class="" name="uploaded_images" pagination pagination-data="{{choose_uploaded_images}}" ng-init="refresh_images('choose_uploaded_images')"></div>
+    <section ng-if="is_state('default')">
+        <div>
+            <div class="image-box {{is_in_selected(item.id_files, 'id_files')? 'image-box--selected' : ''}}" ng-repeat="item in $$pagination.instances.uploaded_images.get_records() | sortBy:'-uploaded_timestamp' " ng-click="add_to_selected(item)">
+                <div class="image-box--selection" ng-if="select_file">
+                    <div ng-if="!is_in_selected(item.id_files, 'id_files')" class="image-box--selection-circle"><i class="material-icons">radio_button_unchecked</i></div>
+                    <div ng-if="is_in_selected(item.id_files, 'id_files')" class="image-box--selection-circle image-box--selection--selected"><i class="material-icons">check_circle</i></div>
+                </div>
+                <div class="image-box--image-preview" style="background-image: url({{item.file_url}});"></div>
+            </div>
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default {{item == $$pagination.instances.uploaded_images.get_currentPage()? 'btn-primary' : ''}}" ng-click="$$pagination.instances.uploaded_images.set_page(item)" ng-repeat="item in $$pagination.instances.uploaded_images.pages_item()" >{{item}}</button>
+        </div>
+    </section>
+
+    <section ng-if="is_state('images_on_other_editor')">
+        
+        <div class="panel panel-default" ng-repeat="article in image_on_article " ng-if="article.id_article != $$article.id_article">
+            <div class="panel-heading">
+                <div class="panel-title"> {{article.title}}  </div>
+            </div>
+            <div class="panel-body">
+                <div class="text-center" ng-if="article._images_item.length <= 0"> No images on this article. </div>
+                <div class="image-box {{is_in_selected(item.id_files)? 'image-box--selected' : ''}}" ng-repeat="item in article._images_item | sortBy:'-uploaded_timestamp' track by $index " ng-if="item" ng-click="add_to_selected(item)">
+                    <div class="image-box--selection" ng-if="select_file">
+                        <div ng-if="!is_in_selected(item.id_files)" class="image-box--selection-circle"><i class="material-icons">radio_button_unchecked</i></div>
+                        <div ng-if="is_in_selected(item.id_files)" class="image-box--selection-circle image-box--selection--selected"><i class="material-icons">check_circle</i></div>
+                    </div>
+                    <div class="image-box--image-preview" style="background-image: url({{item.file_url}});"></div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</script>

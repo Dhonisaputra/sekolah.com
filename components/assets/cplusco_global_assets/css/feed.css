@@ -1,0 +1,81 @@
+/*======================== [ n e w S ] ===========================*/
+.social-feed-container
+{
+	margin-top: 40px;
+	width: 100%;
+}
+.news-box{
+	display: flex;
+	padding: 20px 10px 10px 5px;
+}
+.news-content{
+	box-shadow: 0px 4px 12px #ccc;
+	background-color: #FCFCFC;
+}
+.news-top img{
+	max-height: 228px;
+}
+.news-object{
+	min-height: 60px;
+	text-align: center;
+	background-color: #FCFCFC;
+}
+.news-date{
+	position: absolute;
+	background-color: #FFA500;
+	padding: 1.5px;
+	width: 60px;
+	float: left;
+	z-index: 1;
+}
+.news-text{
+	padding: 10px;
+}
+	.news-title{
+		font-size: 1rem;
+		margin-bottom: 10px;
+		font-weight: 400;
+	}
+	.news-time{
+		font-size: 0.8em;
+		color: #000;
+		margin-bottom: 0.5rem;
+	}
+	.news-words{
+		max-height: 200px;
+		overflow: hidden;
+		font-size: 0.8em;
+		line-height: 2;
+		margin-bottom: 10px;
+	}
+	.news-media
+	{
+		height: 200px; 
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+.news-footer{
+	padding: 15px 10px;
+	background-color: #e8e8e8;
+	display: flex;
+	justify-content: space-around;
+}
+.news-footer * {
+	font-family: 'Helvetica Neue LT Std', sans-serif;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 12px;
+}
+
+.instagram-news
+{
+}
+.news-footer .news-footer--item
+{
+	/*display: inline-block;*/
+
+}
+.news-footer a.readmore{
+	text-decoration: none;
+}

@@ -1,0 +1,102 @@
+<script type="text/javascript" src="components/assets/client/plugins/jsupload/jsdata.upload.js"></script>
+<script type="text/javascript" src="components/assets/client/plugins/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="components/assets/client/plugins/ckeditor/adapters/jquery.js"></script>
+
+<div ng-article-open ng-article-type="event" ng-article-name="event_edit" ng-moment></div>
+	
+<div class="col-md-6">
+	
+	<div class="row">
+		<div class="col-md-6" ng-if="event_preview_photo || event_preview_photo != '' || event_edit.related.event.event_photo_url != '' ">
+			<img ng-src="{{event_preview_photo? event_preview_photo : event_edit.related.event.event_photo_url}}" class="img-responsive thumbnail">
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Photo</label>
+		<input class="form-control" type="file" name="event_photo" id="event-upload-photo">
+	</div>
+	<div class="form-group">
+		<label>Event name</label>
+		<input class="form-control" type="text" name="" ng-model="event_edit.title">
+	</div>
+	<div class="form-group" ng-init="event_edit.use_latlng = (event_edit.related.event.event_location_lat != '')? true : false">
+		<label>Location</label>
+		<input type="text" class="form-control" name="" ng-model="event_edit.related.event.event_location">
+	</div>
+	<div class="form-group" ng-if="event_edit.use_latlng">
+		<label>Latitude</label>
+		<input type="text" name="" class="form-control" ng-model="event_edit.related.event.event_location_lat">
+	</div>
+	<div class="form-group" ng-if="event_edit.use_latlng">
+		<label>Longitude</label>
+		<input type="text" name="" class="form-control" ng-model="event_edit.related.event.event_location_lng">
+	</div>
+	<div class="form-group">
+		<label>Keywords</label>
+		<input type="text" name="" class="form-control" ng-model="event_edit.post_tag">
+	</div>
+	<div class="form-group">
+		<div class="checkbox">
+			<label><input type="checkbox"  name="" ng-model="event_edit.use_latlng">Use Lat-Lng</label>	
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Event Description</label>
+		<textarea class="form-control" name="ckeditor_content" ng-model="event_edit.content" ng-ckeditor ng-ckeditor-parameters="{{ckeditor_event}}"></textarea>
+	</div>
+
+	<hr>
+
+	<div class="form-group">
+		<label>Event Start</label><br>
+		<input type="text" name="" class="event_date" ng-value="moment.formatUnix(event_edit.related.event.event_start*1000, undefined, 'MM/DD/YYYY')" ng-bind="start_date" placeholder="Pick date">
+		<input type="text" name="" class="event_time" ng-value="moment.formatUnix(event_edit.related.event.event_start*1000, undefined, 'HH:mm')" ng-bind="start_time" placeholder="Pick Time">
+	</div>
+
+	<div class="form-group">
+		<label>Event End</label><br>
+		<input type="text" name="" class="event_date" ng-value="moment.formatUnix(event_edit.related.event.event_end*1000, undefined, 'MM/DD/YYYY')" ng-bind="end_date" placeholder="Pick date">
+		<input type="text" name="" class="event_time" ng-value="moment.formatUnix(event_edit.related.event.event_end*1000, undefined, 'HH:mm')" ng-bind="end_time" placeholder="Pick Time">
+	</div>
+
+	<div class="form-group">
+		<label>External reference</label> 
+		<br>
+		<input type="text" name="" ng-model="source_label" placeholder="External Label">
+		<input type="text" name="" ng-model="source_link" placeholder="External Source">
+		<a ng-click="tambah_external_reference()">Add</a>
+		<div class="form-helper text-warning">You can add some external url here.</div>
+		<div>
+			<ul>
+				<li ng-repeat="item in event_edit.related.event.reference_link"> <a href="{{item.reference}}">{{item.label}}</a> <a ng-click="remove_external_reference($index)">remove</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>Ticket URL</label>
+		<input type="text" name="" class="form-control" ng-model="event_edit.related.event.event_ticket_url">
+	</div>
+
+	<div class="form-group">
+		<label>Attachment</label> 
+		<input type="file" name="event_attachment" id="event-upload-attachment" class="form-control" multiple>
+		<div>
+			<label>Existed File</label> 
+			<ul>
+				<li ng-repeat="item in event_edit.related.attachment"> {{item.original_name}} <a ng-click="remove_existed_external_attachment(item, $index)" >remove</a></li>
+			</ul>
+		</div>
+		<div ng-if="ext_attachment.length > 0">
+			<label>New Uploaded File</label> 
+			<ul>
+				<li ng-repeat="item in ext_attachment"> {{item.name}} <a ng-click="remove_external_attachment(item, $index)" >remove</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<button class="btn btn-primary" ng-click="update_event()">Update Event</button>
+	</div>
+
+</div>

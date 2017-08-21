@@ -1,0 +1,190 @@
+* {
+	box-sizing:border-box;
+	padding:0px;
+	margin:0px;
+	font-weight: 300;
+	font-family: inherit;
+	font-color: rgb(51,51,51);
+	vertical-align: baseline;
+	font-size: 16px;
+}
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+body, html {
+	overflow-x:hidden;
+	overflow-y:auto;
+	display: block;
+	width: 100%;
+
+}
+body {
+	line-height: 1.5;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+ol, ul {
+	list-style: none;
+}
+a, 
+a:hover, 
+a:active, 
+a:focus, 
+a:visited {
+	text-decoration: none !important;
+	cursor: pointer;
+}
+.container, .section, .header, .aside, .footer,
+section,header,aside,footer {
+	display: block;
+}
+.section::before,.section::after,
+.header::before,.header::after,
+.aside::before,.aside::after,
+.footer::before,.footer::after,
+section::before,section::after,
+header::before,header::after,
+aside::before,aside::after,
+footer::before, footer::after {
+	content: " ";
+	display: table;
+}
+.section::after,
+.header::after,
+.aside::after,
+.footer::after,
+section::after,
+header::after,
+aside::after,
+footer::after {
+	clear: both;
+}
+.text-center {
+	text-align: center !important;
+}
+.text-left {
+	text-align: left !important;
+}
+.text-right {
+	text-align: right !important;
+}
+.text-justify {
+	text-align: justify !important;
+}
+.text-upper {
+	text-transform: uppercase;
+}
+.text-lower {
+	text-transform: lowercase;
+}
+.text-cap {
+	text-transform: capitalize;
+}
+.text-sub {
+	vertical-align: sub;
+}
+.text-super {
+	vertical-align: super;
+}
+h1, h2, h3, h4, h5, h6 {
+	-webkit-margin-before: 1em;
+    -webkit-margin-after: 1rem;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold
+}
+h1 {
+	font-size: 2.67rem;
+}
+h2 {
+	font-size: 2rem;
+}
+h3 {
+	font-size: 1.5rem;
+}
+h4 {
+	font-size: 1.33rem;
+}
+h5 {
+	font-size: 1rem;
+}
+h6 {
+	font-size: 0.83rem;
+}
+.inline {
+	display: inline;
+}
+.inline-table {
+	display: inline-table;
+}
+.table {
+	display: table;
+}
+.block {
+	display: block;
+}
+.inline-block {
+	display: inline-block;
+}
+.absolute {
+	position: absolute !important;
+}
+.relative {
+	position: relative !important;
+}
+.fixed {
+	position: fixed !important;
+}
+.center {
+	margin-right: auto;
+	margin-left: auto;
+}
+.width-100 {
+	max-width: 100%;
+	width: 100%;
+}
+
+div.back-to-top {
+	position: fixed;
+	bottom: 3%;
+	right: 40px;
+	z-index: 9999999999;
+}
+.back-to-top a {
+	bottom: 3%;
+    background-color: rgba(0,0,0,0.3);
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    height: 38px;
+    width: 38px;
+    vertical-align: middle;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.height-inherit {
+	height: inherit;
+	min-height: inherit;
+}
+
+red, .red {
+    color: rgb(211, 84, 0);
+}
+
+.fa {
+    margin-right: 2px;
+}

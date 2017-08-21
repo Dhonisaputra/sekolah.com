@@ -1,0 +1,177 @@
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+	<div class="mdl-tabs__tab-bar">
+		<a href="#participants-panel" class="mdl-tabs__tab active" role="presentation"  show_tab>Siswa yang terdaftar</a>
+		<a href="#attendance-panel" class="mdl-tabs__tab"  role="presentation" show_tab>Siswa yang masuk</a>
+		<a href="#materi-panel" class="mdl-tabs__tab" role="presentation"  show_tab>Jurnal Materi</a>
+	</div>
+</div>
+
+<div class="tab-content">
+	<div class="mdl-tabs__panel tab-pane active" id="participants-panel" role="tabpanel">
+		<div ng-include src="'absen.tmp'"></div>	
+	</div>
+
+	<div class="mdl-tabs__panel tab-pane" id="attendance-panel" role="tabpanel">
+		<div ng-include src="'attendance.tmp'"></div>	
+	</div>
+
+	<div class="mdl-tabs__panel tab-pane " id="materi-panel" role="tabpanel">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form ng-submit="add_materi()">
+							
+							<div class="form-group">
+								<label>Materi</label>
+								<input type="" name="" class="input-sm form-control" ng-model="materi">
+							</div>
+							<div class="form-group">
+								<label>Content</label>
+								<textarea ng-model="content"  class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-primary btn-sm" type="submit">Tambah</button>
+							</div>
+
+						</form>	
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3>Daftar materi</h3>
+						<!-- <table class="table table-bordered table-hovered table-stripped">
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>Nama</th>
+									<th>Aksi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="attendances.length < 1 || !attendances">
+									<td colspan="3" class="text-center">Tidak ada siswa, silahkan klik tombol <strong>Masuk</strong> untuk mengabsensi siswa!</td>
+								</tr>
+								<tr ng-repeat="student in attendances">
+									<td>{{$index+1}}</td>
+									<td>{{student.student}}</td>
+									<td>
+										<a ng-click="add_materi_participants(student,$index,selected_materi)" ng-if="$parent.selected_materi && $parent.selected_materi > 0">Add</a>
+									</td>
+								</tr>
+							</tbody>
+						</table> -->
+						<table class="table table-bordered table-hovered table-stripped">
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>Nama Materi</th>
+									<th>Aksi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="detail_session.materi.length < 1 || !detail_session.materi">
+									<td colspan="3" class="text-center">Belum ada materi ditambahkan!</td>
+								</tr>
+								<tr ng-repeat="list in detail_session.materi">
+									<td>{{$index+1}}</td>
+									<td>{{list.name}}</td>
+									<td>
+										<a class="btn btn-primary btn-sm" href="#/classroom/open/{{routeParams.code}}/schedule/{{routeParams.schedule}}/session/{{routeParams.session}}/materi/{{list.id}}"> Tambahkan siswa </a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div> <!-- end panel-body -->
+				</div>
+<!-- 				<ul>
+					<li ng-repeat="student in attendances">
+						<div class="form-group">
+							{{student.student}} 
+						</div>
+					</li>
+				</ul> -->
+
+				<!-- <ul>
+					<li ng-repeat="list in detail_session.materi">
+						<div class="form-group">
+							<div class="radio">
+								<label><input type="radio" name="selected_materi" ng-model="$parent.selected_materi" value="{{list.id}}" ng-change="change_selected_materi(list,$index)">{{list.name}}</label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<ul>
+								<li ng-repeat="student in list.participants">{{student.name}}</li>
+							</ul>
+						</div>
+					</li>
+				</ul>	 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="absen.tmp">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h3>Siswa yang mengikuti jadwal ini</h3>
+			<table class="table table-bordered table-hovered table-stripped">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Nama</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="student in detail_session.participants">
+						<td>{{$index+1}}</td>
+						<td>{{student.student}}</td>
+						<td>
+							<button class="btn btn-primary btn-sm" ng-click="absen_masuk(student,$index)">Masuk</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+</script>
+
+<script type="text/ng-template" id="attendance.tmp">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h3>Siswa yang datang</h3>
+			<table class="table table-bordered table-hovered table-stripped">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Nama</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-if="attendances.length < 1 || !attendances">
+						<td colspan="3" class="text-center">Tidak ada siswa, silahkan klik tombol <strong>Masuk</strong> untuk mengabsensi siswa!</td>
+					</tr>
+					<tr ng-repeat="student in attendances">
+						<td>{{$index+1}}</td>
+						<td>{{student.student}}</td>
+						<td>
+							<a class="btn btn-primary btn-sm" href="#/classroom/open/{{routeParams.code}}/schedule/{{routeParams.schedule}}/session/{{routeParams.session}}/student/rate/{{student.id_student}}">Tambahkan rating</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="materi.tmp">
+	
+</script>

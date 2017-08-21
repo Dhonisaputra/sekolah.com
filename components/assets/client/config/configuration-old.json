@@ -1,0 +1,6 @@
+{ "owner_key" : "58f3425f81af11",
+	"double_server": false,
+	"web_url": "http://localhost/projects/blog/client",
+	"processing_server": "http://localhost/projects/blog/server/",
+	"handling_server": "http://localhost:3000",
+	"trends" : "https://jala-google-trends.herokuapp.com" }

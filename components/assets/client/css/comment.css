@@ -1,0 +1,47 @@
+.comment-item
+{
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	border-left: 3px solid #52B3D9;
+	margin-bottom: 10px;
+	padding: 10px 0px;
+	/*box-shadow: 0px -5px 6px #eee;*/
+}
+	.comment-item .comment_item--comment-heading
+	{
+		margin-bottom: 5px;
+		border-bottom: 1px solid #eee;
+
+	}
+	.comment-item .comment-item--comment-time
+	{
+		position: absolute;
+		right: 10px;
+		top: 10px;
+	}
+	.comment-item .comment-item--comment-name
+	{
+		font-size: 18px;
+		font-weight: 700;
+		padding: 10px 0px;
+	}
+	.comment-item .comment-item--comment-properties ul
+	{
+		list-style-type: none;
+		display: inline;
+		padding: 0px;
+		margin: 0px;
+	}
+	.icon-time
+	{
+		font-size: 15px;
+		vertical-align: middle;
+	}
+
+
+	[ng-comment]
+	{
+		/*max-height: 500px;*/
+		/*overflow-y: auto;
+		overflow-x: hidden;*/
+	}

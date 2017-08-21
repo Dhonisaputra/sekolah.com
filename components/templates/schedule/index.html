@@ -1,0 +1,46 @@
+<div class="table-responsive">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h3>Jadwal Hari ini</h3>
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th class="col-md-1">No.</th>
+						<th class="col-md-2">Mata Pelajaran</th>
+						<th class="col-md-2">Guru</th>
+						<th class="col-md-1">Jam Dimulai</th>
+						<!-- <th class="col-md-1">Countdown</th> -->
+						<th class="col-md-1">Siswa</th>
+						<th class="col-md-1">status</th>
+						<th class="col-md-2">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="schedule in todays"  ng-if="todays.length > 0">
+						<td class="col-md-1"> {{$index+1}} </td>
+						<td class="col-md-2"> {{schedule.subject}} </td>
+						<td class="col-md-2"> {{schedule.teacher}} </td>
+						<td class="col-md-1"> {{schedule.held_at}} <small class="">({{schedule.countdown}})</small> </td>
+						<!-- <td class="col-md-1"> {{countdown_schedule(schedule)}} </td> -->
+						<!-- <td class="col-md-1"> {{schedule.countdown}} </td> -->
+						<td class="col-md-1"> {{schedule.capacity}} </td>
+						<td class="col-md-1" ng-if="schedule.is_class_over == 1"> <span class="label label-success">session sudah dimulai</span> </td>
+						<td class="col-md-1" ng-if="schedule.is_class_over == 0"> <span class="label label-info">session akan dimulai</span> </td>
+						<td class="col-md-2"> 
+							<a class="btn btn-danger btn-xs" href="#/classroom/open/{{schedule.class_code}}/schedule/{{schedule.id}}/session/{{schedule.session_active.id_session}}" ng-if="schedule.is_class_over == 1"> Detail session </a>
+							<a class="btn btn-primary btn-xs" href="#/classroom/open/{{schedule.class_code}}/schedule/{{schedule.id}}" ng-if="schedule.is_class_over == 0" ng-init="create_new_session(schedule)"> Detail jadwal </a>
+							<button class="btn btn-info btn-xs" ng-if="!schedule.session_active.id_session && schedule.inFifteenMinutes && schedule.is_class_over == 0" ng-click="create_new_session(schedule)"> Start </button>
+						 </td>
+					</tr>
+					<tr ng-if="todays.length <= 0">
+						<td colspan="7" class="text-center"> Tidak ada jadwal ditemukan. </td>
+					</tr>
+					<tr ng-if="!todays">
+						<td colspan="7" class="text-center"> Mencari jadwal hari ini. </td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,41 @@
+<div class="form-group">
+	<a href="#/event/new" class="btn btn-primary"> Create New Event </a>
+</div>
+<hr>
+<div class="list-group" ng-article ng-article-type="event" ng-article ng-article-name="article_event" ng-article-name-overwrite>
+	<div class="list-group-item text-center"  ng-if="!article_event || article_event.length <= 0">
+		No Event found!
+	</div>
+	<table class="table table-hover table-bordered table-striped" ng-if="article_event || article_event.length > 0">
+		<thead>
+			<tr>
+				<th>Event name</th>
+				<th>Event start</th>
+				<th>Event location</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in article_event | sortBy:'-posted_time'" ng-moment>
+				<td>{{item.title}}</td>
+				<td>{{moment.formatUnix(item.related.event.event_start*1000, undefined, 'DD MMM YYYY')}}</td>
+				<td>{{item.related.event.event_location}}</td>
+				<td>{{item.post_status}}</td>
+				<td>
+					<a href="#/articles/edit/{{item.article_type}}/{{item.id_article}}" class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">edit</i>
+					</a>
+					<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="remove_event(item)">
+						<i class="material-icons">delete</i>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- <div class="list-group-item" ng-if="article_event && article_event.length > 0" >
+		
+		{{item.title}} 
+
+	</div> -->
+</div>

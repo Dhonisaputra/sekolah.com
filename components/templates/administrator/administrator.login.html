@@ -1,0 +1,38 @@
+<!-- <form >
+	<div class="form-group">
+	</div>
+	<div class="form-group">
+	</div>
+	
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary">Login</button>
+	</div>
+</form> -->
+<style type="text/css">
+	.card-container {background-color: white !important;}
+</style>
+<link rel="stylesheet" type="text/css" href="components/assets/client/css/administrator.login.css?v=2">
+<div class="container">
+	<div class="card card-container">
+		<!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+		<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+		<p id="profile-name" class="profile-name-card"></p>
+		<form class="form-signin" ng-submit="login()">
+			<span id="reauth-email" class="reauth-email"></span>
+			<input type="email" name="email"  class="form-control" ng-model="login_components.email">
+			<input type="password" name="password" class="form-control"  ng-model="login_components.password">
+			<div ng-if="alert.login" class="alert alert-warning">
+				{{alert.login}}
+			</div>
+			<div id="remember" class="checkbox">
+				<label>
+					<input type="checkbox" value="remember-me"> Remember me
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+		</form><!-- /form -->
+		<a href="#" class="forgot-password">
+			Forgot the password?
+		</a>
+	</div><!-- /card-container -->
+    </div><!-- /container -->

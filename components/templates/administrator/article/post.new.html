@@ -1,0 +1,173 @@
+
+<script type="text/javascript" src="components/assets/client/plugins/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="components/assets/client/plugins/ckeditor/adapters/jquery.js"></script>
+<style type="text/css">
+	.accordion
+	{
+		margin-bottom: 0px;
+		/*border-bottom: */
+	}
+	[ng-accordion].panel-heading
+	{
+		border-bottom: none !important;
+	}
+</style>
+<div class="container-fluid">
+	<div class="form-group">
+		<!-- Raised button -->
+		<a class="mdl-button mdl-js-button mdl-button--raised" ng-href="#/articles">
+			<i class="material-icons">chevron_left</i> Back
+		</a>
+		<span>{{state_saving}}</span>
+	</div>
+
+		<div class="row">
+			<div class="col-lg-9 col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-body">
+
+						<div class="form-group">
+							<label>Title</label>
+							<input type="text" name="title" class="form-control input-lg title title_article" ng-model="data.title" placeholder="Title" autofocus ng-keyup="title_processing()" autocomplete="false" aria-hidden="true">
+						</div>
+						<div class="form-group slug" ng-slug>
+							<div class="">{{data.slug_start}}</div>
+							<div class="" ng-if="$$categories.get_category_primary() !== ''">{{$$categories.get_name_category_primary()}}/</div>
+							<div class=""><input type="" id="slug_end" name="" ng-model="data.slug_end" ng-change="$$slug.method.auto_fixing_slug(data.slug_end, 'data.slug_end')"></div>
+							<div class=""><button class="btn btn-primary btn-xs" ng-click="$$slug.method.check_permalink(data.slug_end, 'data.slug_end')">Check Perm</button></div>
+						</div>
+						<div class="form-group">
+							<label>Content</label>
+							<textarea class="form-control" name="content"></textarea>
+						</div>
+						<div class="form-group">
+							<ng-include src="'component-new-post'"></ng-include>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-lg-3 col-md-3" style="background-color: white;">
+
+    			<div ng-include="'/components/templates/administrator/article/post.autosave.list.html'"></div>
+
+				<div class="panel panel-default row accordion flat">
+					<div class="panel-heading" ng-accordion="#post-setting" accordion-group="sidebar" accordion-open accordion-default="collapse-all" >Status</div>
+					<div class="panel-body" id="post-setting">
+						<init  ng-init="post_status='draft'">
+						<div class="form-group sr-only">
+							<div class="radio">
+								<label><input type="radio" name="post_status" ng-model="data.post_status" value="draft"> Draft</label>
+							</div>
+							<div class="radio">
+								<label><input type="radio" name="post_status" ng-model="data.post_status" value="publish" ng-click="data.set_schedule=false"> Publish</label>
+							</div>
+						</div>
+						<!-- Schedule -->
+						<!-- <div class="form-group">
+							<button class="mdl-button mdl-js-button mdl-button--icon active" ng-if="data.set_schedule==true" ng-click="process_set_schedule()">
+							  <i class="material-icons">check_box</i>
+							</button>
+							<button class="mdl-button mdl-js-button mdl-button--icon active" ng-if="data.set_schedule==false" ng-click="process_set_schedule()">
+							  <i class="material-icons">check_box_outline_blank</i>
+							</button>
+							<span>Schedule</span>
+
+						</div>
+						
+						<div ng-if="data.set_schedule">
+							<div class="form-group">
+								<label>Date</label>
+								<input name="" id="set_schedule_date" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>time</label>
+								<input name="" id="set_schedule_time" class="form-control">
+							</div>
+						</div> -->
+						<div class="form-group" style="display: flex;align-items: center;">
+							<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="open_schedule_calendar()"  style="display: inline;">
+							  <i class="material-icons">access_time</i> 
+							</button>
+							<input name="" id="set_schedule_date" class="form-control input-sm"  style="border: none;" value="Schedule not set!">
+						</div>
+						
+						<div ng-related-article></div>
+
+						<hr>
+						
+						<div class="form-group">
+							<select name="singleSelect" ng-model="data.privacy" class="pull-left">
+						      	<option value="1">Public</option>
+						      	<option value="2">Protected</option>
+						      	<option value="3">Private</option>
+						    </select>
+						    <div class="pull-right">
+								<button class="mdl-button mdl-js-button" ng-click="draft_post()">Draft</button>
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="publish_post()" ng-if="!data.set_schedule">publish</button>
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="scheduled_new_post()" ng-if="data.set_schedule">Schedule</button>
+						    </div>
+						</div>
+					</div>
+				</div>				
+				<div class="panel panel-default row accordion flat">
+					<div class="panel-heading" ng-accordion="#post-summary" accordion-group="sidebar" >Article summary</div>
+					<div class="panel-body" id="post-summary">
+						<div class="form-group">
+							<textarea class="form-control" ng-model="data.summary"></textarea>
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="panel panel-default row accordion flat">
+					<div class="panel-heading" ng-accordion="[ng-categories-panel]" accordion-group="sidebar" >Categories</div>
+					<div class="panel-body" ng-categories-panel>
+					</div>
+				</div>
+				<div class="panel panel-default row accordion flat">
+					<div class="panel-heading" ng-accordion="[ng-keyword-panel]" accordion-group="sidebar" >Keywords</div>
+					<div class="panel-body" ng-keyword-panel >
+					</div>
+				</div>
+
+			</div>
+		</div>
+</div>
+
+<script type="text/ng-template" id="component-new-post">
+	<div ng-upload-panel></div>
+
+	<div>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#tags" aria-controls="tags" role="tab" show-tab data-toggle="tab">Tags</a></li>
+		<li role="presentation"><a href="#sosmed" aria-controls="sosmed" role="tab" show-tab data-toggle="tab">Social media</a></li>
+		<li role="presentation"><a href="#archive" aria-controls="sosmed" role="tab" show-tab data-toggle="tab">Linked with other article</a></li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="tags">
+				<div ng-if="components.tagSelected.length < 1"> No Tags found! </div>
+				<div ng-if="components.tagSelected.length > 0">
+					<div class="tag-group">
+						<div class="tag-group-item" id="tag-selected-{{$index}}" ng-repeat="item in components.tagSelected">
+							{{item}} 
+							<input type="hidden" name="tag_selected[]" value="{{item}}">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="removeTagSelected($index)">
+							  	<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div role="tabpanel" class="tab-pane" id="sosmed">...</div>
+			<div role="tabpanel" class="tab-pane" id="archive">
+			</div>
+		</div>
+
+	</div>
+</script>

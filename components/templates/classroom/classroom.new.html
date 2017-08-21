@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-md-3">
+		
+		<form  ng-submit="add_new_classroom()">
+			<div class="form-group">
+				<label>Guru</label>
+				<select name="singleSelect" class="form-control" ng-model="classroom_data.teacher" >
+					<option class="" selected="" value="0">--- SELECT TEACHER ---</option>
+			      	<option value="{{teacher.id}}" ng-repeat="teacher in teachers">{{teacher.name}}</option>
+			    </select>
+			</div>
+			<div class="form-group">
+				<label>Mata pelajaran</label>
+				<select class="form-control" name="singleSelect" ng-model="classroom_data.subject">
+					<option class="" selected="" value="0">--- SELECT SUBJECT ---</option>
+			      	<option value="{{subject.id}}" ng-repeat="subject in subjects">{{subject.name}}</option>
+			    </select>
+			</div>
+			<div class="form-group">
+				<label>Nama kelas</label>
+				<input type="text" class="form-control" name="" ng-model="classroom_data.classname">
+			</div>
+			<div class="form-group">
+				<label>Kelas dimulai tanggal?</label>
+				<input type="text" class="form-control" name="" id="classdate" ng-model="classroom_data.date">
+			</div>
+			<div class="form-group">
+				<label>Kelas dimulai setiap jam?</label>
+				<input type="text" class="form-control" name="" id="classtime" ng-model="classroom_data.time">
+			</div>
+			
+			<div class="form-group">
+				<button class="btn btn-primary btn-sm" type="submit">Create</button>
+			</div>
+		</form>
+	</div>
+</div>

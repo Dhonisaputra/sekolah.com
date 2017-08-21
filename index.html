@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html ng-app="mainApp" initialize-blog source="panel">
+<head lang="en">
+	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <base href="http://matrik.com"> -->
+
+    <!-- Angular Base -->
+	<title ng-bind="'Laboratorium &mdash; ' + title"></title>
+
+    <link  rel="stylesheet" href="components/assets/client/css/modules.css?v=2"/>
+
+
+	<!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="components/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+	<!-- Google Material -->
+	<link rel="stylesheet" href="components/bower_components/material-design-lite/icon.css">
+	<link rel="stylesheet" href="components/bower_components/material-design-lite/material.min.css">
+
+	<!-- Animation library for notifications   -->
+    <!-- <link href="components/assets/client/css/uplabs.animate.min.css?v=2" rel="stylesheet"/> -->
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="components/assets/client/css/uplabs.light-bootstrap-dashboard.css?v=2" rel="stylesheet"/>
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="components/assets/client/css/uplabs.demo.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="components/bower_components/swal/sweetalert.css">
+
+    <link href="components/assets/client/css/uplabs.pe-icon-7-stroke.css?v=2" rel="stylesheet" />
+
+    <link href="components/assets/client/plugins/font_awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- dynamically write css -->
+    <link rel="stylesheet" type="text/css" ng-repeat="css in base_component.external_source.css" id="link_stylesheet_{{$index}}"  ng-href="{{css}}" class="link_stylesheet">
+
+	<script type="text/javascript" src="components/bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="components/bower_components/moment/min/moment.min.js"></script>
+	<script type="text/javascript" src="components/assets/client/js/library.helper.js"></script>
+    <script type="text/javascript" src="components/assets/client/plugins/sdk/sdk.js"></script>
+
+	<!-- Bootstrap -->
+	<script src="components/bower_components/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+	<!-- Google Material -->
+	<script src="components/bower_components/material-design-lite/material.min.js"></script>
+
+	<!-- Swetalert -->
+    <script type="text/javascript" src="components/bower_components/swal/sweetalert.min.js"></script>
+
+</head>
+<body>
+	<div id="_landing_page" ng-if="landing_page == true">
+		<p><h1>Please wait!</h1></p>
+		<div class="mdl-spinner mdl-js-spinner is-active"></div>
+	</div>
+	<div class="wrapper">
+	    <!-- menu sidebar -->
+	    <div ng-include="'components/templates/administrator/components/sidebar.html'" class="" ng-if="sidebar == true"></div>
+	    <div class="main-panel {{sidebar == false? 'full-width-100' : ''}}" style = "{{style_main_panel}}">
+	        <!-- navbar -->
+	        <div ng-include="'components/templates/administrator/components/navbar.html'" ng-if="navbar == true"></div>
+
+	        <!-- content -->
+	        <div class="content">
+	            <div class="container-fluid">
+					<ng-view></ng-view>
+	            </div>
+	        </div>
+
+	    </div>
+	</div>
+	<!-- <div ng-include="{{default_template}}"></div>	 -->
+	<div id="snackbarTemp" class="mdl-snackbar mdl-js-snackbar" style=""> 
+		<div class="mdl-spinner mdl-js-spinner is-active" style="display:none; margin-top: 9px;margin-left: 7px;"></div>
+		<div class="mdl-snackbar__text"></div> 
+		<button type="button" class="mdl-snackbar__action"></button> 
+	</div>
+
+	<!-- modal_costumized -->
+	<!-- Modal -->
+	<div class="modal fade" id="globalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+			<div class="modal-body">
+				...
+			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="components/bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="components/bower_components/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="components/bower_components/angular-sanitize/angular-sanitize.js"></script>
+
+	<!-- <script type="text/javascript" src="components/bower_components/socketio/socketio.js?1231"></script> -->
+	<!-- <script type="text/javascript" src="components/bower_components/socketio/akar.socketio.js?1231"></script> -->
+	
+	<script type="text/javascript" src="components/bower_components/jscookie/js.cookie.js"></script>
+	
+	<script type="text/javascript" src="components/angular/Modules/classroom.module.js?1231"></script>
+	<script type="text/javascript" src="components/angular/Routing/classroom.js?1231"></script>
+	<script type="text/javascript" src="components/angular/Controllers/classroom.js?1231"></script>
+	
+	<script type="text/javascript" src="components/angular/Services/classroom.js?1231"></script>
+	<script type="text/javascript" src="components/angular/Directive/classroom.js?1231"></script>
+	<script type="text/javascript" src="components/angular/Factory/classroom.js?1231"></script>
+
+	<script type="text/javascript" src="components/assets/client/js/server.analytics.js?1231"></script>
+	<script type="text/javascript" src="components/assets/client/js/snackbar.helper.js?1231"></script>
+
+	<link rel="stylesheet" type="text/css" href="components/assets/client/plugins/xdsoft/jquery.datetimepicker.css?v=2">
+	<script type="text/javascript" src="components/assets/client/plugins/xdsoft/build/jquery.datetimepicker.full.min.js?1231"></script>
+	
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<!-- <script src="assets/assets/js/uplabs.bootstrap-checkbox-radio-switch.js"></script> -->
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<!-- <script src="components/assets/client/js/uplabs.light-bootstrap-dashboard.js?v=2"></script> -->
+</body>
+</html>

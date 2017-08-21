@@ -1,0 +1,84 @@
+<div class="row">
+	<div class="list-group">
+		<div class="list-group-item">
+			<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect {{ads_configuration.auto_ads == '1'? 'is-checked' : '' }}" for="activate-auto-ads" material-design>
+			  	<input type="checkbox" id="activate-auto-ads" class="mdl-switch__input sr-only" ng-model="ads_configuration.auto_ads" value="1" ng-true-value="1" ng-false-value="0" ng-change="update_auto_ads()">
+			  	<span class="mdl-switch__label" style="margin-left: 20px;">Activate auto ads</span>
+			</label>
+		</div>
+	</div>
+
+	<div ng-if="ads_configuration.auto_ads == 1">
+		<div>
+
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" show-tab data-toggle="tab">Setting ads</a></li>
+			<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" show-tab data-toggle="tab">Ads List</a></li>
+			<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" show-tab data-toggle="tab">Ads Analytics</a></li>
+			<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" show-tab data-toggle="tab">Settings</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="home">
+					<div class="list-group flat">
+
+						<div class="list-group-item flat"  style="margin-top: 10px;">
+							<div class="form-inline">  
+								<div class="form-group">
+								    <label for="exampleInputName2">Sum of Ad  will shown : </label>
+								    <input type="text" class="" id="exampleInputName2" placeholder="Jane Doe" ng-model="ads_configuration.ads_length">
+								    <button ng-click="update_ads_length()">Save</button>
+							  	</div>
+							</div>
+						</div>
+						<div class="list-group-item flat">
+							
+							<div class="form-inline">  
+								<div class="form-group">
+								    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect {{shuffle_ads == '1'? 'is-checked' : '' }}" for="shuffle-ads" material-design>
+									  	<span class="mdl-switch__label" style=""> Shuffle Ads </span>
+									  	<input type="checkbox" id="shuffle-ads" class="mdl-switch__input sr-only" ng-model="ads_configuration.shuffle_ads" value="1" ng-true-value="1" ng-false-value="0" ng-change="update_shuffle_ads()">
+									</label>
+							  	</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="profile">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-8">
+									<div class="">
+										<div class="form-group">
+										    <input type="text" class="form-control input-sm" id="exampleInputName2" placeholder="Example = <iframe src=':url_embed_src' other-attributes...></iframe>" ng-model="ads_configuration.new_ads_list">
+									  	</div>
+									</div>
+								</div>  
+								<div class="col-md-2">
+									<select class="form-control" ng-model="ads_configuration.new_ads_list_priority" ng-required>
+										<option class="" value="1">Low</option>
+										<option class="" value="2">Medium</option>
+										<option class="" value="3">High</option>
+									</select>
+								</div>
+								<div class="col-md-2">
+								    <button class="btn btn-primary" ng-click="insert_new_ads_list()">Add</button>
+								</div>  
+							</div>
+							<hr>
+						</div>	
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="messages">...</div>
+				<div role="tabpanel" class="tab-pane" id="settings">...</div>
+			</div>
+
+		</div>
+		
+	</div>
+</div>
+

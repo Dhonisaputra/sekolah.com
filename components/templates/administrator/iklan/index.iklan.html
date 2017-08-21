@@ -1,0 +1,129 @@
+<div class="row">
+	<div class="list-group">
+		<div class="list-group-item">
+			<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect {{ads_configuration.auto_ads == '1'? 'is-checked' : '' }}" for="activate-auto-ads" material-design>
+			  	<input type="checkbox" id="activate-auto-ads" class="mdl-switch__input sr-only" ng-model="ads_configuration.auto_ads" value="1" ng-true-value="1" ng-false-value="0" ng-change="update_auto_ads()">
+			  	<span class="mdl-switch__label" style="margin-left: 20px;">Activate auto ads</span>
+			</label>
+		</div>
+	</div>
+
+	<div ng-if="ads_configuration.auto_ads == 1">
+		<div>
+
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" show-tab data-toggle="tab">Setting ads</a></li>
+			<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" show-tab data-toggle="tab">Ads List</a></li>
+			<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" show-tab data-toggle="tab">Ads Analytics</a></li>
+			<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" show-tab data-toggle="tab">Settings</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="home">
+					<div class="list-group flat">
+
+						<div class="list-group-item flat"  style="margin-top: 10px;">
+							<div class="form-inline">  
+								<div class="form-group">
+								    <label for="exampleInputName2">Sum of Ad  will shown : </label>
+								    <input type="text" class="" id="exampleInputName2" placeholder="Jane Doe" ng-model="ads_configuration.ads_length">
+								    <button ng-click="update_ads_length()">Save</button>
+							  	</div>
+							</div>
+						</div>
+						<div class="list-group-item flat">
+							
+							<div class="form-inline">  
+								<div class="form-group">
+								    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect {{shuffle_ads == '1'? 'is-checked' : '' }}" for="shuffle-ads" material-design>
+									  	<span class="mdl-switch__label" style=""> Shuffle Ads </span>
+									  	<input type="checkbox" id="shuffle-ads" class="mdl-switch__input sr-only" ng-model="ads_configuration.shuffle_ads" value="1" ng-true-value="1" ng-false-value="0" ng-change="update_shuffle_ads()">
+									</label>
+							  	</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="profile">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<a href="#/ads/new" class="btn btn-primary">Add new ads</a>
+							<hr>
+							<div class="list-group">
+								<div class="list-group-item text-center" ng-if="ad_list.length < 1">You didn't add any ad. ad one by clicking <strong>Add New Ads</strong> button </div>
+								<table class="table table-striped table-hover table-bordered" ng-if="ad_list.length > 0">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Shown</th>
+											<th>Embed url</th>
+											<th>Priority</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in ad_list">
+											<td>{{item.ad_name}}</td>
+											<td>{{item.ad_shown_counter}}</td>
+											<td>{{item.ad_url}}</td>
+											<td>{{item.ad_priority}}</td>
+											<td>
+												<a href="#/ads/edit/{{item.id_ad}}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+												<button class="btn btn-primary" ng-click="remove_ads(item)"><i class="glyphicon glyphicon-trash"></i></button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>	
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="messages">...</div>
+				<div role="tabpanel" class="tab-pane" id="settings">...</div>
+			</div>
+
+		</div>
+		
+	</div>
+</div>
+
+<script type="text/ng-template" id="new_ads.html">
+	<a href="#/ads" class="btn btn-primary"> <i class="glyphicon glyphicon-chevron-left"></i> Back to ads panel</a>
+	<hr>
+	<form id="form_new_ads">
+		<div class="form-group">
+			<label>Ad Name</label>
+			<input type="text" class="form-control" name="" ng-model="new_ads.ad_name">
+		</div>
+		<div class="form-group">
+			<label>Ad Url</label>
+			<input type="text" class="form-control" name="" ng-model="new_ads.ad_url">
+		</div>
+		<div class="form-group">
+			<label>Ad priority</label>
+			<select class="form-control" ng-model="new_ads.priority" ng-required>
+				<option class="" value="1" ng-selected>Low</option>
+				<option class="" value="2">Medium</option>
+				<option class="" value="3">High</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>Max shown</label>
+			<input type="number" class="form-control" name="" ng-model="new_ads.max_shown">
+		</div>
+		<div class="form-group">
+			<label>Minimum time to show</label>
+			<input type="time" class="form-control" name="" ng-model="new_ads.ad_min_time_show">
+		</div>
+		<div class="form-group">
+			<label>Maximum time to show</label>
+			<input type="time" class="form-control" name="" ng-model="new_ads.ad_max_time_show">
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" type="button" ng-click="add_new_ads()">Save Ad</button>
+		</div>
+	</form>
+</script>

@@ -1,0 +1,92 @@
+<script type="text/javascript" src="components/assets/client/plugins/jsupload/jsdata.upload.js"></script>
+<script type="text/javascript" src="components/assets/client/plugins/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="components/assets/client/plugins/ckeditor/adapters/jquery.js"></script>
+
+<div class="row">
+	<div class="col-md-3" ng-if="event_preview_photo || event_preview_photo != '' ">
+		<img ng-src="{{event_preview_photo}}" class="img-responsive thumbnail">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		
+		<div class="form-group">
+			<label>Photo</label>
+			<input type="file" name="event_photo" id="event-upload-photo" class="form-control">
+		</div>
+		<div class="form-group">
+			<label>Event name</label>
+			<input type="text" name="" ng-model="event_new.name" class="form-control" placeholder="Event Name"> 
+		</div>
+		<div class="form-group" ng-init="event_new.use_latlng = false">
+			<label>Location</label>
+			<input type="text" name="" ng-model="event_new.location" class="form-control" placeholder="Event Location">
+		</div>
+		<div class="form-group" ng-if="event_new.use_latlng">
+			<label>Latitude</label>
+			<input type="text" name="" ng-model="event_new.lat" class="form-control" placeholder="Event Latitude">
+		</div>
+		<div class="form-group" ng-if="event_new.use_latlng">
+			<label>Longitude</label>
+			<input type="text" name="" ng-model="event_new.lng" class="form-control" placeholder="Event Longitude">
+		</div>
+		<div class="form-group">
+			<label>Keywords</label>
+			<input type="text" name="" ng-model="event_new.keywords" class="form-control" placeholder="Add Some Keywords">
+		</div>
+		<div class="form-group">
+			<div class="checkbox">
+				<label><input type="checkbox" name="" ng-model="event_new.use_latlng">Use Lat-Lng</label>	
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Event Description</label>
+			<textarea class="form-control" name="ckeditor_content" ng-model="event_new.description" ng-ckeditor ng-ckeditor-parameters="{{ckeditor_event}}"></textarea>
+		</div>
+
+		<hr>
+
+		<div class="form-group">
+			<label>Event Start</label><br>
+			<input type="text" name="" class="event_date" ng-model="event_new.start_date" placeholder="Pick date">
+			<input type="text" name="" class="event_time" ng-model="event_new.start_time" placeholder="Pick Time">
+		</div>
+
+		<div class="form-group">
+			<label>Event End</label><br>
+			<input type="text" name="" class="event_date" ng-model="event_new.end_date" placeholder="Pick date">
+			<input type="text" name="" class="event_time" ng-model="event_new.end_time" placeholder="Pick Time">
+		</div>
+		<div class="form-group">
+			<label>External reference</label> 
+			<br>
+			<input type="text" name="" ng-model="source_label" placeholder="External Label">
+			<input type="text" name="" ng-model="source_link" placeholder="External Source">
+			<a ng-click="tambah_external_reference()">Add</a>
+			<div class="form-helper text-warning">You can add some external url here.</div>
+			<div>
+				<ul>
+					<li ng-repeat="item in ext_source"> <a href="{{item.source}}">{{item.label}}</a> <a ng-click="remove_external_reference($index)">remove</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Ticket URL</label>
+			<input type="text" name="" ng-model="event_new.ticket_url" class="form-control"  placeholder="Ticket Url">
+		</div>
+
+		<div class="form-group">
+			<label>Attachment</label> 
+			<input type="file" multiple="" name="event_attachment" id="event-upload-attachment" class="form-control">
+			<div>
+				<ul>
+					<li ng-repeat="item in ext_attachment"> {{item.name}} <a ng-click="remove_external_attachment(item, $index)" >remove</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<button class="btn btn-primary" ng-click="create_event()">Create Event</button>
+		</div>
+	</div>
+</div>

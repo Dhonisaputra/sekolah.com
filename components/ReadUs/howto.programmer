@@ -1,0 +1,39 @@
+Bagaimana cara menggunakan F_Sort
+F_Sort adalah Factory code angular untuk sort berdasarkan kondisi / object tertentu. 
+paramaters 
+	- object yang akan difilter
+	- type object. // karena angular memberdayakan semua value menjadi string, maka gunakan ini sebagai identifikasi type dari value object. (i=integer, s=string, b=boolean, d=double/float)
+contoh penggunaan
+- <tag ng-repeat="item in [{data:1},{data:2},{data:3}] | sortBy:'data':'i'"></tag>
+
+# function 
+fn initialize comment // can be applied ad comment of comment
+	- data comment
+
+fn send_comment 
+	- id_article
+	- id_comment //if available
+	- credential
+	- comment_content
+
+fn login
+	- comment_name
+	- comment_email
+
+fn checkCredential 
+	- cookies
+
+fn replyAnComment // replying comment
+fn replyAnArticle // replying the article
+fn setActiveCommentEditor // set active textField
+	- add class ng-editor-comment-active
+fn getActiveCommentEditor // get active textfield
+
+
+# event
+on textfield focus
+on comment 
+
+#object
+	- fn helper
+		- get name comment

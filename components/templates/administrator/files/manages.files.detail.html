@@ -1,0 +1,255 @@
+<style type="text/css">
+	#file-open-detail
+	{
+		height: 84vh;
+		overflow-y: hidden;
+	}
+	#toolbar
+	{
+		margin-bottom: 10px;
+		height: 5vh;
+	}
+		#toolbar button
+		{
+			margin-right: 5px;
+		}
+
+	#file-stuff-box
+	{
+		padding-top: 15px;
+		background-color: white;
+	}
+	#related-box
+	{
+		min-height: 75vh;
+	}
+	#preview-box
+	{
+		height: 75vh;
+	}
+		#overview-file
+		{
+			overflow-y: auto;
+			height: 60vh;
+		}
+		.panel-properties--detail
+		{
+			padding: 15px;
+		}
+			.panel-properties--detail-item
+			{
+				display: flex;
+				margin-bottom: 10px;
+			}
+			.panel-properties--detail-item .key:after
+			{
+				content: " : ";
+				font-weight: 700;
+				float: right;
+				margin-right: 5px;
+			}
+			.panel-properties--detail-item .key
+			{
+				font-weight: 700;
+				width: 20%;
+			}
+			.panel-properties--detail-item .value
+			{
+				width: 80%;
+				word-break: break-word;
+			}
+	.btn-permantently-delete
+	{
+		background-color: #E74C3C;
+		color: white;
+		font-weight: 700;
+	}
+</style>
+<!-- toolbar -->
+<div id="file-open-detail" class=" col-md-12">
+
+
+	<div class="row" id="file-stuff-box">
+
+		<div class="col-md-4 col-lg-4 col-sm-12 col-xs-12" id="preview-box">
+			<div class="" id="toolbar" style="padding: 0px 10px;">
+				
+				<!-- Copy button -->
+				<a href="#/manage/files" class="mdl-button mdl-js-button mdl-button--icon" tooltip data-toggle="tooltip" data-placement="bottom" title="Back">
+					<i class="material-icons">arrow_back</i>
+				</a>
+				<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="copy_link()" tooltip data-toggle="tooltip" data-placement="bottom" title="Copy file link">
+					<i class="material-icons">link</i>
+				</button>
+				<input type="text" name="" id="url-copy-source" class="sr-only" ng-model="file.url.link">
+				<!-- Rename button -->
+				<!-- <button class="mdl-button mdl-js-button mdl-button--icon">
+					<i class="material-icons">border_color</i>
+				</button> -->
+				<!-- star button -->
+				<button class="mdl-button mdl-js-button mdl-button--icon" ng-if="file.is_important == 1" ng-click="unset_as_important()" tooltip data-toggle="tooltip" data-placement="bottom" title="Remove mark as important">
+					<i class="material-icons text-warning">star</i>
+				</button>
+				<button class="mdl-button mdl-js-button mdl-button--icon bg-warning" ng-if="file.is_important == 0" ng-click="set_as_important()" tooltip data-toggle="tooltip" data-placement="bottom" title="Mark as important">
+					<i class="material-icons">star_border</i>
+				</button>
+
+			</div>
+			<div id="overview-file">
+				
+				<div class="preview">
+					<img src="{{file.url.link}}" class="img-thumbnail img-responsive">
+				</div>
+				<div class="panel-properties--detail">
+					<div class="panel-properties--detail-item">
+						<div class="key">name</div>
+						<div class="value">{{file.name}}</div>
+					</div>
+					<div class="panel-properties--detail-item">
+						<div class="key">Size</div>
+						<div class="value">{{file.size}}</div>
+					</div>
+					<div class="panel-properties--detail-item">
+						<div class="key">Type</div>
+						<div class="value">{{file.ext}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="alert alert-danger" ng-if="file.is_important">File marked as important. Please un-mark this file as important to remove the file!</div>
+				<a href="#" class="btn btn-block btn-danger text-uppercase btn-permantently-delete" ng-if="!file.is_important">DELETE file</a>
+			</div>
+		</div>
+
+		<div class="col-md-8 col-lg-8 col-sm-12 col-xs-12" id="related-box">
+			<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+				<div class="mdl-tabs__tab-bar">
+					<a href="#related-panel" class="mdl-tabs__tab is-active active" show-tab>Related with</a>
+					<a href="#permalink-panel" class="mdl-tabs__tab" show-tab>Permalink list</a>
+				</div>
+
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active mdl-tabs__panel is-active" id="related-panel">
+						<div class="panel-properties--detail">
+							<div style="display: flex;align-items: center; justify-content: space-between;">
+								<h5 class="">#Article</h5>
+								<!-- <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="removeFromRelated(item)" style="margin-right: 15px;" tooltip data-toggle="tooltip" data-placement="bottom" title="Hapus semua related">
+								  <i class="material-icons">delete_sweep</i>
+								</button> -->
+							</div>
+							<table class="table table-striped table-hover table-bordered table-condensed">
+								<thead>
+									<tr>
+										<th class="col-md-10">Judul artikel</th>
+										<th class="col-md-2">aksi</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in file_related.in_article">
+										<td class="col-md-10">{{item.title}}</td>
+										<td class="col-md-2">
+											<!-- Icon button -->
+											<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="removeFromRelated(item)" tooltip data-toggle="tooltip" data-placement="bottom" title="Hapus">
+											  <i class="material-icons">delete</i>
+											</button>
+											<a href="#/articles/edit?id={{item.id}}" class="mdl-button mdl-js-button mdl-button--icon" tooltip data-toggle="tooltip" data-placement="bottom" title="Buka Editor">
+											  <i class="material-icons">input</i>
+											</a>
+										</td>
+									</tr>
+									<tr ng-if="!file_related.in_article || file_related.in_article.length < 1">
+										<td class="text-center" colspan="2">Tidak ada data ditemukan</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div style="display: flex;align-items: center; justify-content: space-between;">
+								<h5 class="">#Events</h5>
+								<!-- <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="removeFromRelated(item)" style="margin-right: 15px;" tooltip data-toggle="tooltip" data-placement="bottom" title="Hapus semua related">
+								  <i class="material-icons">delete_sweep</i>
+								</button> -->
+							</div>
+							<table class="table table-striped table-hover table-bordered table-condensed">
+								<thead>
+									<tr>
+										<th class="col-md-10">Judul event</th>
+										<th class="col-md-2">aksi</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in file_related.in_event">
+										<td class="col-md-10">{{item.title}}</td>
+										<td class="col-md-2">
+											<!-- Icon button -->
+											<button class="mdl-button mdl-js-button mdl-button--icon">
+											  <i class="material-icons">delete</i>
+											</button>
+											<button class="mdl-button mdl-js-button mdl-button--icon">
+											  <i class="material-icons">input</i>
+											</button>
+										</td>
+									</tr>
+									<tr ng-if="!file_related.in_event || file_related.in_event.length < 1">
+										<td class="text-center" colspan="2">Tidak ada data ditemukan</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div style="display: flex;align-items: center; justify-content: space-between;">
+								<h5 class="">#Attachments</h5>
+								<!-- <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="removeFromRelated(item)" style="margin-right: 15px;" tooltip data-toggle="tooltip" data-placement="bottom" title="Hapus semua related">
+								  <i class="material-icons">delete_sweep</i>
+								</button> -->
+							</div>
+							<table class="table table-striped table-hover table-bordered table-condensed">
+								<thead>
+									<tr>
+										<th class="col-md-8">Lokasi</th>
+										<th class="col-md-2">type</th>
+										<th class="col-md-2">aksi</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in file_related.in_attachment">
+										<td class="col-md-8">{{item.title}}</td>
+										<td class="col-md-2">{{item.type}}</td>
+										<td class="col-md-2">
+											<!-- Icon button -->
+											<button class="mdl-button mdl-js-button mdl-button--icon" >
+											  <i class="material-icons">delete</i>
+											</button>
+											<button class="mdl-button mdl-js-button mdl-button--icon">
+											  <i class="material-icons">input</i>
+											</button>
+										</td>
+									</tr>
+									<tr ng-if="!file_related.in_attachment || file_related.in_attachment.length < 1">
+										<td class="text-center" colspan="3">Tidak ada data ditemukan</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- <div class="list-group" ng-if="file_related.in_article.length > 0">
+								<div class="list-group-item" ng-repeat="item in file_related.in_article" >
+									File ini tersedia dalam artikel 
+									<a href="#/articles/edit?id={{item.id}}"><strong></strong></a>
+								</div>
+							</div> -->
+							<!-- <div class="list-group" ng-if="file_related.in_attachment.length > 0">
+								<div class="list-group-item" ng-repeat="item in file_related.in_attachment" >
+									File ini telah diunggah sebagai attachment pada article 
+									<a href="#/articles/edit?id={{item.id}}"><strong>{{item.title}}</strong></a>
+								</div>
+							</div> -->
+						</div>
+					</div>
+
+					<div role="tabpanel" class="tab-pane mdl-tabs__panel" id="permalink-panel">
+						
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

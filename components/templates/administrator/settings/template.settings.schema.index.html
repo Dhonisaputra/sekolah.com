@@ -1,0 +1,40 @@
+<div class="form-group">
+	<!-- Icon button -->
+	<button class="mdl-button mdl-js-button mdl-button--icon" tooltip data-tooltip="Back to settings template" ng-click="back()">
+	  <i class="material-icons">arrow_back</i>
+	</button>
+	<button class="mdl-button mdl-js-button" ng-click="add_schema()">
+        Tambah data schema
+    </button>
+</div>
+
+ <div class="form-group">
+    <!-- Flat button -->
+</div>
+<table class="table table-stripped table-hover table-condensed table-bordered" id="table-routing">
+    <thead>
+        <tr class="row">
+            <th class="col-md-11">Routing</th>
+            <th class="col-md-1">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="row" ng-repeat="item in schemas track by $index">
+            <td class="col-md-11">
+            	{{item.name}}
+            </td>
+            <td class="col-md-1">
+                <!-- Icon button -->
+                <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="open_schema(item)">
+                  <i class="material-icons">edit</i>
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="delete_routing($event, $index)">
+                  <i class="material-icons">delete</i>
+                </button>
+            </td>
+        </tr>
+        <tr ng-if="schemas.length <= 0">
+        	<td colspan ="3" class="text-center">No Data found</td>
+        </tr>
+    </tbody>
+</table>

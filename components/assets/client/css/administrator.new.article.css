@@ -1,0 +1,33 @@
+input.title_article
+{
+    padding: 14px 10px !important;
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    border: none !important;
+}
+.cke_chrome
+{
+	border: none !important;
+	background: transparent !important;
+}
+.cke_top
+{
+	margin-bottom: 10px !important;
+	padding: 10px !important;
+}
+.slug>*
+{
+	display: inline;
+}
+	.slug input
+	{
+		border: none !important;
+	}
+	.slug input#slug_end
+	{
+		left: -4px;
+		width: 600px;
+		background-color: transparent;
+		margin-left: 0px;
+		position: relative;
+	}

@@ -1,0 +1,181 @@
+<style type="text/css">
+	[show-tab].active
+	{
+	    border-bottom: 2px solid;
+	}
+	#panel-right--backdrop
+	{
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		left: 0;
+		top: 0px;
+		background: rgba(0,0,0,.5);	
+	}
+	#panel-right--properties
+	{
+		background-color: #ECECEC;
+		width: 450px;
+		height: 100vh;
+		position: fixed;
+		right: 0px;
+		top: 0px;
+	}
+	#navbar-panel-properties
+	{
+		height: 50px;
+		background-color: #9368E9;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+		#navbar-panel-properties>button
+		{
+			color: white;
+		}
+	#panel-properties--is-image
+	{
+		padding: 15px;
+		border-bottom: 1px solid #eee;
+		text-align: center;
+	}
+		#panel-properties--is-image img
+		{
+			max-height: 200px;
+			text-align: center;
+		}
+	.panel-properties--detail
+	{
+		padding: 15px;
+		background-color: white;
+	}
+		.panel-properties--detail-item
+		{
+			display: flex;
+			margin-bottom: 10px;
+		}
+		.panel-properties--detail-item .key:after
+		{
+			content: " : ";
+			font-weight: 700;
+			float: right;
+			margin-right: 5px;
+		}
+		.panel-properties--detail-item .key
+		{
+			font-weight: 700;
+			width: 20%;
+		}
+		.panel-properties--detail-item .value
+		{
+			width: 80%;
+			word-break: break-word;
+		}
+
+	.tab-content
+	{
+		overflow-y: auto;
+	}
+
+</style>
+<div class="table-responsive">
+	<table class="table table-responsive table-bordered table-hover table-condensed table-striped">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>File Name</th>
+				<th>File type</th>
+				<th>File size</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="file in files.data ">
+				<td>{{$index+1}}</td>
+				<td>{{file.name}}</td>
+				<td>{{file.ext}}</td>
+				<td>{{file.size}}</td>
+				<td>
+					<button class="mdl-button mdl-js-button mdl-button--icon" ng-click="trigger_panel(file)"><i class="material-icons">info</i></button>
+					<a href="#/manage/files/detail/{{file.id}}" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">chevron_right</i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="form-group">
+	<!-- Raised button -->
+	<button class="mdl-button mdl-js-button mdl-button--raised" ng-disabled="!files.pagination.prev">
+		<<
+	</button>
+	<button class="mdl-button mdl-js-button mdl-button--raised" ng-repeat="page in pagelength()">
+		{{page}}
+	</button>
+	<!-- Raised button -->
+	<button class="mdl-button mdl-js-button mdl-button--raised" ng-disabled="!files.pagination.next">
+		>>
+	</button>
+
+</div>
+
+<div id="panel-right--backdrop" ng-if="panel_show">	
+	<div id="panel-right--properties">
+		<div id="navbar-panel-properties">
+			<button class="pull-right mdl-button mdl-js-button mdl-button--icon" ng-click="trigger_panel()"><i class="material-icons">close</i></button>
+		</div>
+		<div class="text-center" id="panel-properties--is-image" ng-if="panel_file.is_image">
+			<center><img src="{{panel_file.url.link}}" class="img-responsive"></center>
+		</div>
+		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+			<div class="mdl-tabs__tab-bar">
+				<a href="#detail-panel" class="mdl-tabs__tab is-active active" show-tab>Detail</a>
+				<a href="#activity-panel" class="mdl-tabs__tab" show-tab>Activity</a>
+			</div>
+
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active mdl-tabs__panel is-active" id="detail-panel">
+					<div class="panel-properties--detail">
+						<div class="panel-properties--detail-item">
+							<div class="key">URL</div>
+							<div class="value">{{panel_file.url.link}}</div>
+						</div>
+						<div class="panel-properties--detail-item">
+							<div class="key">name</div>
+							<div class="value">{{panel_file.name}}</div>
+						</div>
+						<div class="panel-properties--detail-item">
+							<div class="key">Size</div>
+							<div class="value">{{panel_file.size}}</div>
+						</div>
+						<div class="panel-properties--detail-item">
+							<div class="key">Type</div>
+							<div class="value">{{panel_file.ext}}</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<div role="tabpanel" class="tab-pane mdl-tabs__panel" id="activity-panel">
+					<div class="panel-properties--detail">
+						<div class="list-group" ng-if="file_related.in_article.length > 0">
+							<div class="list-group-item" ng-repeat="item in file_related.in_article" >
+								File ini tersedia dalam artikel 
+								<a href="#/articles/edit?id={{item.id}}"><strong>{{item.title}}</strong></a>
+							</div>
+						</div>
+						<div class="list-group" ng-if="file_related.in_attachment.length > 0">
+							<div class="list-group-item" ng-repeat="item in file_related.in_attachment" >
+								File ini telah diunggah sebagai attachment pada article 
+								<a href="#/articles/edit?id={{item.id}}"><strong>{{item.title}}</strong></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+
+	</div>
+</div>

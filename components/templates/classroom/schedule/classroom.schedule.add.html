@@ -1,0 +1,35 @@
+<form  ng-submit="add_new_schedule()">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					
+					<div class="form-group">
+						<label>Guru</label>
+						<select class="form-control" name="singleSelect" ng-model="classroom_data.teacher" >
+							<option class="" selected="" value="0">--- SELECT TEACHER ---</option>
+					      	<option value="{{teacher.id}}" ng-repeat="teacher in teachers">{{teacher.name}}</option>
+					    </select>
+					</div>
+					<div class="form-group">
+						<label>Kelas dimulai tanggal?</label>
+						<input class="form-control input-sm" type="text"  name="" id="classdate" ng-model="classroom_data.date">
+					</div>
+					<div class="form-group">
+						<label>Kelas dimulai setiap jam?</label>
+						<input class="form-control input-sm" type="text"  name="" id="classtime" ng-model="classroom_data.time">
+					</div>
+					<div class="form-group">
+						<label>Kapasitas kelas</label>
+						<input class="form-control input-sm" type="text"  name="" id="classtime" ng-model="classroom_data.capacity">
+					</div>
+
+					<div class="form-group">
+						<button class="btn btn-primary btn-sm" type="submit">Tambah jadwal</button>
+					</div>
+			
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
